@@ -1,0 +1,156 @@
+/* Container styling */
+.calculator-container {
+  padding: 2rem;
+  max-width: 800px;
+  margin: auto;
+  font-family: sans-serif;
+}
+
+/* Calculator UI placeholder */
+.calculator-ui {
+  margin-top: 2rem;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+/* Section divider */
+.section-divider {
+  margin: 2rem 0;
+}
+
+/* Privacy Policy Button Container */
+.privacy-button-container {
+  text-align: center;
+  margin-top: 2.5rem;
+}
+
+/* Privacy Button itself */
+.privacy-button {
+  background-color: #a7daff;
+  color: rgb(66, 129, 130);
+  padding: 0.8rem 1.2rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  display: inline-block;
+}
+
+.privacy-button:hover {
+  background-color: #a3a3a3;
+  transform: translateY(-1px);
+}
+
+
+/* Center alignment */
+.centered {
+  text-align: center;
+}
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+/* Modal Content */
+.modal-content {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  position: relative;
+  animation: slideUp 0.3s ease;
+  text-align: center;
+}
+
+/* Close Button */
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #333;
+}
+
+/* Confirm Button */
+.confirm-download {
+  margin-top: 1.5rem;
+  padding: 0.8rem 1.5rem;
+  background-color: #0077cc;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.confirm-download:hover {
+  background-color: #005fa3;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.comparison-section {
+  margin-top: 2rem;
+  background: #f9f9f9;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  font-family: monospace;
+}
+
+.comparison-section h3 {
+  margin-top: 1rem;
+  color: #333;
+}
+
+.comparison-section pre {
+  background: #fff;
+  padding: 1rem;
+  border-radius: 6px;
+  overflow-x: auto;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.accuracy-note {
+  margin-top: 1rem;
+  font-weight: 600;
+  color: #0077cc;
+}

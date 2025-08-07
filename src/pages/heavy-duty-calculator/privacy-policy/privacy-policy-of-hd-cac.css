@@ -1,0 +1,77 @@
+.privacy-policy {
+  padding: 2rem;
+  max-width: 800px;
+  margin: auto;
+  font-family: "Segoe UI", sans-serif;
+  background-color: #fefefe;
+  color: #333;
+  line-height: 1.6;
+}
+
+.privacy-policy h1,
+.privacy-policy h2 {
+  color: #222;
+}
+
+.privacy-policy a {
+  color: #8b8b8b;
+  text-decoration: none;
+}
+
+.privacy-policy a:hover {
+  color: black;
+  text-decoration: underline;
+}
+
+.privacy-policy section {
+  margin-bottom: 2rem;
+}
+.top-right-back {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
+.back-button-static {
+  background-color: #b8b8b8;
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.back-button-static:hover {
+  background-color: #505050;
+}
+
+.bottom-back {
+  width: 100%;
+  margin-top: 3rem;
+  text-align: center;
+}
+
+.back-button-bottom {
+  color: #8aa8ae;
+  background-color: #cef1f1;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: 
+    background-color 0.3s ease,
+    color 0.3s ease,
+    transform 0.2s ease,
+    font-size 0.2s ease,
+    padding 0.2s ease;
+  display: inline-block;
+  width: 100%;
+}
+
+.back-button-bottom:hover {
+    color: #868686;
+  background-color: #bdbdbd;
+}
