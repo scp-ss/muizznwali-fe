@@ -5,7 +5,9 @@ import HeavyDutyCalculator from "./pages/heavy-duty-calculator/hd-calc";
 import PrivacyPolicy from "./pages/heavy-duty-calculator/privacy-policy/privacy-policy-of-hd-calc";
 import WhatsAppSection from "./pages/whatsapp/whatsapp";
 import "./App.css";
-import AdsenseAd from "./components/adss/adsense/adsense"
+import AdComponent from "./components/adss/adsense/adsense";
+
+
  declare global {
   interface Window {
     adsbygoogle: unknown[];
@@ -44,9 +46,10 @@ export default function App() {
             data-ad-format="auto"
             data-full-width-responsive="true"></ins>
         </div>
-        <AdsenseAd />
+        
 
         {/* 🧱 Main Content */}
+
         <div style={{ flex: 1, padding: "2rem" }}>
           <nav className="navbar">
             <Link to="/" className="nav-link">Home</Link>
@@ -59,6 +62,7 @@ export default function App() {
           </Routes>
 
           <WhatsAppSection />
+          <AdComponent/>
 
           {location.pathname !== "/" && (
             <div className="back-to-home">
