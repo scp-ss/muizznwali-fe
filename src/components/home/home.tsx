@@ -12,7 +12,7 @@ const Home = () => {
         <p>
           <strong>Muizz</strong> and <strong>Wali</strong> are the creators behind this site.
           <br />
-          We collaborate to share our projects, promote our content, and showcase our skills.
+          We are brothers who created this app for our selves and testing.
         </p>
       </section>
 
