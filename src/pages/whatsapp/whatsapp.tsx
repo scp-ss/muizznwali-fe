@@ -10,10 +10,8 @@ const WhatsAppSection = () => {
 
   const handleWhatsAppClick = () => {
     if (isMobile) {
-      // Mobile: open WhatsApp app
       window.open(`whatsapp://send?phone=${phoneNumber}&text=${message}`, '_blank');
     } else {
-      // Desktop: show modal with choice
       setShowModal(true);
     }
   };

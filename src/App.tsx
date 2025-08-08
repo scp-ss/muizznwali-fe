@@ -1,35 +1,72 @@
 import { Routes, Route, Link, useLocation } from "react-router-dom";
+import { useEffect } from "react";
 import HeavyDutyCalculator from "./pages/heavy-duty-calculator/hd-calc";
 import PrivacyPolicy from "./pages/heavy-duty-calculator/privacy-policy/privacy-policy-of-hd-calc";
-import "./App.css";
 import WhatsAppSection from "./pages/whatsapp/whatsapp";
+import "./App.css";
+
+// 🧠 Fix TypeScript error for adsbygoogle
+declare global {
+  interface Window {
+    adsbygoogle: unknown[];
+  }
+}
+
 export default function App() {
-const location = useLocation();
-const muizz = "If you are seeing ts it means u are either a dev that found foss project or u are a HAKOR OMG OMG PLZ PZL Z LZPZLP, "
-  
+  const location = useLocation();
+
+  // 🧠 Trigger AdSense rendering
+  useEffect(() => {
+    try {
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
+    } catch (e) {
+      console.error("AdSense error", e);
+    }
+  }, []);
+
   return (
-    <div style={{ fontFamily: "sans-serif", padding: "2rem" }}>
-      {/*  Navbar */}
-      <nav className="navbar">
-        <Link to="/" className="nav-link">Home</Link>
-        <Link to="/heavy-duty-calculator" className="nav-link">Heavy Duty Calculator</Link>
-      </nav>
+    <div style={{ display: "flex", fontFamily: "sans-serif" }}>
+      
+      {/* 🟨 Left Ad */}
+      <div style={{ width: "160px", padding: "1rem" }}>
+        <ins className="adsbygoogle"
+          style={{ display: "block" }}
+          data-ad-client="ca-pub-4750351433435072"
+          data-ad-slot="1234567890" // Replace with your actual slot ID
+          data-ad-format="auto"
+          data-full-width-responsive="true"></ins>
+      </div>
 
+      {/* 🧱 Main Content */}
+      <div style={{ flex: 1, padding: "2rem" }}>
+        <nav className="navbar">
+          <Link to="/" className="nav-link">Home</Link>
+          <Link to="/heavy-duty-calculator" className="nav-link">Heavy Duty Calculator</Link>
+        </nav>
 
-      {/*  Routes */}
-      <Routes>
-        <Route path="/heavy-duty-calculator" element={<HeavyDutyCalculator />} />
-        <Route path="/heavy-duty-calculator/privacypolicy" element={<PrivacyPolicy />} />
-      </Routes>
-<WhatsAppSection/>
-      {/* ⬅️ Back Button (only show if not on home) */}
-      {location.pathname !== "/" && (
-        <div className="back-to-home">
-          <Link to="/" className="back-button">
-             Back to Home Menu
-          </Link>
-        </div>
-      )}
+        <Routes>
+          <Route path="/heavy-duty-calculator" element={<HeavyDutyCalculator />} />
+          <Route path="/heavy-duty-calculator/privacypolicy" element={<PrivacyPolicy />} />
+        </Routes>
+
+        <WhatsAppSection />
+
+        {location.pathname !== "/" && (
+          <div className="back-to-home">
+            <Link to="/" className="back-button">Back to Home Menu</Link>
+          </div>
+        )}
+      </div>
+
+      {/* 🟨 Right Ad */}
+      <div style={{ width: "160px", padding: "1rem" }}>
+        <ins className="adsbygoogle"
+          style={{ display: "block" }}
+          data-ad-client="ca-pub-4750351433435072"
+          data-ad-slot="0987654321" // Replace with your actual slot ID
+          data-ad-format="auto"
+          data-full-width-responsive="true"></ins>
+      </div>
     </div>
   );
 }
