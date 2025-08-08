@@ -1,6 +1,4 @@
-// src/pages/Home.tsx
-//import React from "react";
-import "./Home.css";
+import "./home.css"
 
 const Home = () => {
   return (
