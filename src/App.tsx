@@ -6,7 +6,6 @@ import PrivacyPolicy from "./pages/heavy-duty-calculator/privacy-policy/privacy-
 import WhatsAppSection from "./pages/whatsapp/whatsapp";
 import "./App.css";
 
-// 🧠 Fix TypeScript error for adsbygoogle
 declare global {
   interface Window {
     adsbygoogle: unknown[];
