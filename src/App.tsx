@@ -6,9 +6,9 @@ import PrivacyPolicy from "./pages/heavy-duty-calculator/privacy-policy/privacy-
 import WhatsAppSection from "./pages/whatsapp/whatsapp";
 import "./App.css";
 import AdComponent from "./components/adss/adsense/adsense";
+import Home from "./components/home/home";
 
-
- declare global {
+declare global {
   interface Window {
     adsbygoogle: unknown[];
   }
@@ -36,49 +36,60 @@ export default function App() {
       </Helmet>
 
       <div style={{ display: "flex", fontFamily: "sans-serif" }}>
-        
         {/* 🟨 Left Ad */}
         <div style={{ width: "160px", padding: "1rem" }}>
-          <ins className="adsbygoogle"
+          <ins
+            className="adsbygoogle"
             style={{ display: "block" }}
             data-ad-client="ca-pub-4750351433435072"
             data-ad-slot="1234567890"
             data-ad-format="auto"
-            data-full-width-responsive="true"></ins>
+            data-full-width-responsive="true"
+          ></ins>
         </div>
-        
 
         {/* 🧱 Main Content */}
-
         <div style={{ flex: 1, padding: "2rem" }}>
           <nav className="navbar">
-            <Link to="/" className="nav-link">Home</Link>
-            <Link to="/heavy-duty-calculator" className="nav-link">Heavy Duty Calculator</Link>
+            <Link to="/" className="nav-link">
+              Home
+            </Link>
+            <Link to="/heavy-duty-calculator" className="nav-link">
+              Heavy Duty Calculator
+            </Link>
           </nav>
 
           <Routes>
+            {/* Render Home on / or /home */}
+            <Route path="/" element={<Home />} />
+            <Route path="/home" element={<Home />} />
+
             <Route path="/heavy-duty-calculator" element={<HeavyDutyCalculator />} />
             <Route path="/heavy-duty-calculator/privacypolicy" element={<PrivacyPolicy />} />
           </Routes>
 
           <WhatsAppSection />
-          <AdComponent/>
+          <AdComponent />
 
-          {location.pathname !== "/" && (
+          {location.pathname !== "/" && location.pathname !== "/home" && (
             <div className="back-to-home">
-              <Link to="/" className="back-button">Back to Home Menu</Link>
+              <Link to="/" className="back-button">
+                Back to Home Menu
+              </Link>
             </div>
           )}
         </div>
 
         {/* 🟨 Right Ad */}
         <div style={{ width: "160px", padding: "1rem" }}>
-          <ins className="adsbygoogle"
+          <ins
+            className="adsbygoogle"
             style={{ display: "block" }}
             data-ad-client="ca-pub-4750351433435072"
             data-ad-slot="0987654321"
             data-ad-format="auto"
-            data-full-width-responsive="true"></ins>
+            data-full-width-responsive="true"
+          ></ins>
         </div>
       </div>
     </>

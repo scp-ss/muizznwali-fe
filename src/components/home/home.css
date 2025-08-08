@@ -1,0 +1,56 @@
+/* src/pages/Home.css */
+
+.container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1rem 2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #222;
+  line-height: 1.6;
+}
+
+.heading {
+  text-align: center;
+  font-weight: 700;
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  color: #1a73e8;
+}
+
+.section {
+  margin-bottom: 2.5rem;
+  padding: 1rem 1.5rem;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.section-heading {
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #1a73e8;
+  padding-bottom: 0.3rem;
+}
+
+.list {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.list-item {
+  margin-bottom: 0.7rem;
+  font-size: 1.1rem;
+}
+
+.link {
+  color: #1a73e8;
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.role {
+  font-style: italic;
+}
