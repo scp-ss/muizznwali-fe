@@ -1,0 +1,30 @@
+css folders = .css file to .tsx files (pages/components)
+styles = reusable peinces of code(highliightation of paragraph, growing, animations and other shit) or for testing differnt
+css
+
+
+
+📁 assets/ Folder
+This is where you put static files that your app needs, like:
+
+Images: logos, icons, backgrounds
+
+Fonts: custom font files (.woff, .ttf, etc.)
+
+Audio/Video: sound effects, intro videos
+
+SVGs: inline or external graphics
+
+Other media: PDFs, animations, etc.
+
+
+📁 resources/ Folder
+This one’s more flexible. It’s often used for:
+
+Data files: JSON, CSV, mock data
+
+Markdown files: blog posts, docs
+
+Localization files: translations for i18n
+
+Reusable config: theme settings, constants
