@@ -35,6 +35,18 @@ s.referrerPolicy = 'no-referrer-when-downgrade';
 l.parentNode.insertBefore(s, l);
 })({})`}
 </Script>
+        <Script id="ad-loader" strategy="afterInteractive">
+          {`(function(iey){
+var d = document,
+    s = d.createElement('script'),
+    l = d.scripts[d.scripts.length - 1];
+s.settings = iey || {};
+s.src = "\/\/wry-boss.com\/bXXAV.snddGrlF0QYsWwcC\/tenmu9fuoZPUYlJkyPZTEYs1yOxDwM_0-NYzSM-twNkjzUk4dMyztQX3ONEAh";
+s.async = true;
+s.referrerPolicy = 'no-referrer-when-downgrade';
+l.parentNode.insertBefore(s, l);
+})({})`}
+</Script>
       </head>
       
       <body className="bg-gray-50 text-gray-900 antialiased">
