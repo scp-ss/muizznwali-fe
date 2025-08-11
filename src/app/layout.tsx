@@ -14,9 +14,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className="scroll-smooth">
       <head>
         {process.env.NODE_ENV === "production" && (
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8243831335530194"
+ <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8243831335530194"
      crossOrigin="anonymous"></script>)
-     
         }
         {/*<meta name="google-adsense-account" content="ca-pub-8243831335530194">*/}
       </head>
