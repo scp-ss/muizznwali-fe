@@ -12,6 +12,14 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="scroll-smooth">
+      <head>
+        {process.env.NODE_ENV === "production" && (
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8243831335530194"
+     crossOrigin="anonymous"></script>)
+     
+        }
+        {/*<meta name="google-adsense-account" content="ca-pub-8243831335530194">*/}
+      </head>
       <body className="bg-gray-50 text-gray-900 antialiased">
         <Navbar />
         <main className="max-w-7xl mx-auto px-4 py-8">{children}</main>
