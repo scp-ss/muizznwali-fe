@@ -58,6 +58,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 l.parentNode.insertBefore(s, l);
               })({})`}
             </Script>
+            <Script>
+              {`<script>
+(function(ntl){
+var d = document,
+    s = d.createElement('script'),
+    l = d.scripts[d.scripts.length - 1];
+s.settings = ntl || {};
+s.src = "\/\/wry-boss.com\/bNXUVvs.djGslq0GY-Wecu\/NeDmj9tuBZaUJltk\/PqTfY\/1JOHDMUBwDN_jzADtUNejRU\/4UN\/TVAP2MMuQH";
+s.async = true;
+s.referrerPolicy = 'no-referrer-when-downgrade';
+l.parentNode.insertBefore(s, l);
+})({})
+</script>`}
+            </Script>
           </>
         )}
       </head>
