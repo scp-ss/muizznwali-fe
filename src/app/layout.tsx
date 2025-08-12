@@ -13,7 +13,17 @@ export const metadata: Metadata = {
 
 const isLocalhost = typeof window !== "undefined" &&
   (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1");
-
+const adBannerHTML = `
+  <a href="https://hilltopads.com/?ref=330235">
+    <img src="//static.hilltopads.com/other/banners/pub/huge_income/728x90.gif?v=1754909802">
+  </a>
+  <a href="https://hilltopads.com/?ref=330235">
+    <img src="//static.hilltopads.com/other/banners/pub/get_high_ecpm/728x90.gif?v=1754909802">
+  </a>
+  <a href="https://hilltopads.com/?ref=330235">
+    <img src="//static.hilltopads.com/other/banners/pub/make_big_money/728x90.gif?v=1754909802">
+  </a>
+`;
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="scroll-smooth">
@@ -53,6 +63,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
 
       <body className="bg-gray-50 text-gray-900 antialiased">
+        <div dangerouslySetInnerHTML={{ __html: adBannerHTML }} />
         <Navbar />
         <SpeedInsights />
         <Analytics />
