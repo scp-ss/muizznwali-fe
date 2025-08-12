@@ -58,7 +58,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 l.parentNode.insertBefore(s, l);
               })({})`}
             </Script>
-            <Script>
+            <Script id="hilltop-ad-3" strategy="afterInteractive">
               {`<script>
 (function(ntl){
 var d = document,
