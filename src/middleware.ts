@@ -1,14 +1,35 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-
-
-
+import { isAuthenticatedFromRequest } from "@/lib/auth";
 
 export function middleware(request: NextRequest) {
-  return(
-    NextResponse.next()
-  )
+  const { pathname } = request.nextUrl;
+
+  // Skip middleware for non-admin routes
+  if (!pathname.startsWith('/admin')) {
+    return NextResponse.next();
+  }
+
+  // Allow login page
+  if (pathname === '/admin/login') {
+    return NextResponse.next();
+  }
+
+  // For other admin routes, check authentication
+  const authCookie = request.cookies.get('admin-auth');
+  const isAuthenticated = authCookie?.value === 'authenticated';
+  
+  if (!isAuthenticated) {
+    return NextResponse.redirect(new URL('/admin/login', request.url));
+  }
+
+  return NextResponse.next();
 }
+
+export const config = {
+  matcher: ["/admin/:path*", "/admin"],
+};
+
 /*
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
