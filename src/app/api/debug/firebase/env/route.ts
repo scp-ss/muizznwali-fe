@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 // /pages/api/firebase/debug-env.ts
 
 import type { NextApiRequest, NextApiResponse } from 'next'
