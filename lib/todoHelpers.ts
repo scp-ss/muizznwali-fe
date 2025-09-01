@@ -1,5 +1,5 @@
 import { database } from './firebase';
-import { ref, push, set, get, remove, query, orderByChild, onValue, off } from 'firebase/database';
+import { ref, push, set, get, remove, onValue, off, DatabaseReference } from 'firebase/database';
 
 // Priority levels with ClickUp colors
 export type Priority = 'urgent' | 'high' | 'normal' | 'low';
@@ -212,7 +212,7 @@ export const listenToUserTasks = (userId: string, callback: (tasks: TodoTask[]) 
 };
 
 // Stop listening to task updates
-export const stopListeningToTasks = (tasksRef: any) => {
+export const stopListeningToTasks = (tasksRef: DatabaseReference) => {
   off(tasksRef);
 };
 

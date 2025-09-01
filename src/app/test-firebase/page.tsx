@@ -5,8 +5,8 @@ import { writeData, readData, addData, listenToData } from '../../../lib/databas
 
 export default function TestFirebase() {
   const [message, setMessage] = useState('');
-  const [data, setData] = useState<any>(null);
-  const [posts, setPosts] = useState<any>(null);
+  const [data, setData] = useState<Record<string, unknown> | null>(null);
+  const [posts, setPosts] = useState<Record<string, unknown> | null>(null);
   const [loading, setLoading] = useState(false);
 
   // Test writing data
@@ -29,7 +29,7 @@ export default function TestFirebase() {
   const handleReadData = async () => {
     setLoading(true);
     const result = await readData('test/message');
-    setData(result);
+    setData(result as Record<string, unknown>);
     if (result) {
       setMessage('Data read successfully!');
     } else {
@@ -57,8 +57,8 @@ export default function TestFirebase() {
 
   // Test real-time listening
   useEffect(() => {
-    const unsubscribe = listenToData('posts', (data) => {
-      setPosts(data);
+    listenToData('posts', (data) => {
+      setPosts(data as Record<string, unknown>);
     });
 
     return () => {
@@ -75,7 +75,6 @@ export default function TestFirebase() {
         </h1>
 
         <div className="space-y-6">
-          {/* Test buttons */}
           <div className="flex flex-wrap gap-4">
             <button
               onClick={handleWriteData}
@@ -102,14 +101,12 @@ export default function TestFirebase() {
             </button>
           </div>
 
-          {/* Status message */}
           {message && (
             <div className="p-4 bg-blue-100 text-blue-700 rounded">
               {message}
             </div>
           )}
 
-          {/* Display read data */}
           {data && (
             <div className="p-4 bg-gray-100 rounded">
               <h3 className="font-semibold mb-2">Read Data:</h3>
@@ -119,7 +116,6 @@ export default function TestFirebase() {
             </div>
           )}
 
-          {/* Display real-time posts */}
           {posts && (
             <div className="p-4 bg-yellow-100 rounded">
               <h3 className="font-semibold mb-2">Real-time Posts:</h3>

@@ -1,8 +1,8 @@
 import { database } from './firebase';
-import { ref, push, set, get, remove, onValue, off } from 'firebase/database';
+import { ref, push, set, get, remove, onValue, off, DatabaseReference } from 'firebase/database';
 
 // Generic function to write data
-export const writeData = async (path: string, data: any) => {
+export const writeData = async (path: string, data: unknown) => {
   try {
     const dbRef = ref(database, path);
     await set(dbRef, data);
@@ -32,7 +32,7 @@ export const readData = async (path: string) => {
 };
 
 // Generic function to add data (generates unique ID)
-export const addData = async (path: string, data: any) => {
+export const addData = async (path: string, data: unknown) => {
   try {
     const dbRef = ref(database, path);
     const newRef = push(dbRef);
@@ -59,7 +59,7 @@ export const deleteData = async (path: string) => {
 };
 
 // Function to listen to data changes in real-time
-export const listenToData = (path: string, callback: (data: any) => void) => {
+export const listenToData = (path: string, callback: (data: unknown) => void) => {
   const dbRef = ref(database, path);
   onValue(dbRef, (snapshot) => {
     const data = snapshot.val();
@@ -69,12 +69,12 @@ export const listenToData = (path: string, callback: (data: any) => void) => {
 };
 
 // Function to stop listening to data changes
-export const stopListening = (dbRef: any) => {
+export const stopListening = (dbRef: DatabaseReference) => {
   off(dbRef);
 };
 
 // Example functions for common use cases
-export const saveUser = async (userId: string, userData: any) => {
+export const saveUser = async (userId: string, userData: unknown) => {
   return await writeData(`users/${userId}`, userData);
 };
 
@@ -82,7 +82,7 @@ export const getUser = async (userId: string) => {
   return await readData(`users/${userId}`);
 };
 
-export const addPost = async (postData: any) => {
+export const addPost = async (postData: Record<string, unknown>) => {
   return await addData('posts', {
     ...postData,
     timestamp: Date.now()

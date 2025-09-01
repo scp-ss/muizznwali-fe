@@ -4,7 +4,6 @@ import Navbar from "@/components/navbar/navbar";
 import "@/css/astetics.css";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
-import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "Muizz N Wali",

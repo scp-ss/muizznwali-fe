@@ -42,8 +42,8 @@ export default function AuthForm({ onSuccess }: AuthFormProps) {
       } else {
         setError(result.error || 'Authentication failed');
       }
-    } catch (error: any) {
-      setError(error.message || 'An unexpected error occurred');
+    } catch (error: unknown) {
+      setError(error instanceof Error ? error.message : 'An unexpected error occurred');
     }
 
     setLoading(false);

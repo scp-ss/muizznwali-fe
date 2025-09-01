@@ -11,7 +11,6 @@ import {
   stopListeningToTasks, 
   toggleTaskCompletion,
   deleteTask,
-  updateTask,
   addComment,
   TodoTask, 
   Priority, 

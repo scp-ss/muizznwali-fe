@@ -37,9 +37,9 @@ export const createAccount = async (email: string, password: string, displayName
     
     console.log('User account created successfully');
     return { success: true, user };
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Error creating account:', error);
-    return { success: false, error: error.message };
+    return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
   }
 };
 
@@ -49,9 +49,9 @@ export const signIn = async (email: string, password: string) => {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     console.log('User signed in successfully');
     return { success: true, user: userCredential.user };
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Error signing in:', error);
-    return { success: false, error: error.message };
+    return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
   }
 };
 
@@ -61,9 +61,9 @@ export const signOutUser = async () => {
     await signOut(auth);
     console.log('User signed out successfully');
     return { success: true };
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Error signing out:', error);
-    return { success: false, error: error.message };
+    return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
   }
 };
 
