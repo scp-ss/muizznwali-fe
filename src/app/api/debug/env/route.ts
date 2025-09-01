@@ -1,7 +1,12 @@
 import { NextResponse } from 'next/server';
 
 export async function GET() {
-  // This is for debugging - remove after testing
+  // Debug endpoint disabled for production security
+  if (process.env.NODE_ENV === 'production') {
+    return NextResponse.json({ error: 'Not found' }, { status: 404 });
+  }
+  
+  // Only show in development
   return NextResponse.json({
     NODE_ENV: process.env.NODE_ENV,
     hasMainUser: !!process.env.ADMIN_USER_MAIN,

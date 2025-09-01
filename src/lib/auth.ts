@@ -9,8 +9,12 @@ export interface AdminCredentials {
 // Get admin credentials based on environment (server-side only)
 export async function getAdminCredentials(): Promise<AdminCredentials> {
   // Try production env vars first, then fall back to dev
-  const username = process.env.ADMIN_USER_MAIN || process.env.ADMIN_USER_DEV || 'Muizz Nasir';
-  const password = process.env.ADMIN_PASSWORD_MAIN || process.env.ADMIN_PASSWORD_DEV || 'MuizzNasir123&rt';
+  const username = process.env.ADMIN_USER_MAIN || process.env.ADMIN_USER_DEV;
+  const password = process.env.ADMIN_PASSWORD_MAIN || process.env.ADMIN_PASSWORD_DEV;
+  
+  if (!username || !password) {
+    throw new Error('Admin credentials not configured in environment variables');
+  }
   
   // Debug logging (will be visible in Vercel function logs)
   console.log('Environment check:', {

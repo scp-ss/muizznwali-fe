@@ -8,6 +8,7 @@ const Navbar = () => {
 
   const navLinks = [
     { name: "Home", href: "/" },
+    { name: "Todo App", href: "/todo" },
     { name: "Heavy Duty Calculator", href: "/heavy-duty-calculator" },
     { name: "Downloads", href: "/downloads" },
   ];
