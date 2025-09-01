@@ -5,7 +5,7 @@ import { auth } from '../lib/firebase';
 export default function FirebaseDebug() {
   const checkConfig = () => {
     console.log('Firebase Auth Instance:', auth);
-    console.log('Auth App:', auth.app);
+    console.log('Auth App:', auth?.app || 'Not available');
     console.log('Environment Variables:', {
       apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY ? '✅ Present' : '❌ Missing',
       authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN ? '✅ Present' : '❌ Missing',

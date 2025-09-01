@@ -3,8 +3,8 @@ import { ref, push, set, get, remove, onValue, off, DatabaseReference } from 'fi
 
 // Generic function to write data
 export const writeData = async (path: string, data: unknown) => {
-  if (typeof window === 'undefined') {
-    console.warn('Firebase database not available in server environment');
+  if (typeof window === 'undefined' || !database) {
+    console.warn('Firebase database not available or not initialized');
     return false;
   }
   
@@ -21,8 +21,8 @@ export const writeData = async (path: string, data: unknown) => {
 
 // Generic function to read data once
 export const readData = async (path: string) => {
-  if (typeof window === 'undefined') {
-    console.warn('Firebase database not available in server environment');
+  if (typeof window === 'undefined' || !database) {
+    console.warn('Firebase database not available or not initialized');
     return null;
   }
   
@@ -43,8 +43,8 @@ export const readData = async (path: string) => {
 
 // Generic function to add data (generates unique ID)
 export const addData = async (path: string, data: unknown) => {
-  if (typeof window === 'undefined') {
-    console.warn('Firebase database not available in server environment');
+  if (typeof window === 'undefined' || !database) {
+    console.warn('Firebase database not available or not initialized');
     return null;
   }
   
@@ -62,6 +62,11 @@ export const addData = async (path: string, data: unknown) => {
 
 // Generic function to delete data
 export const deleteData = async (path: string) => {
+  if (typeof window === 'undefined' || !database) {
+    console.warn('Firebase database not available or not initialized');
+    return false;
+  }
+  
   try {
     const dbRef = ref(database, path);
     await remove(dbRef);
@@ -75,8 +80,8 @@ export const deleteData = async (path: string) => {
 
 // Function to listen to data changes in real-time
 export const listenToData = (path: string, callback: (data: unknown) => void) => {
-  if (typeof window === 'undefined') {
-    console.warn('Firebase database not available in server environment');
+  if (typeof window === 'undefined' || !database) {
+    console.warn('Firebase database not available or not initialized');
     return null;
   }
   

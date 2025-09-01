@@ -66,8 +66,8 @@ export const PRIORITY_LABELS = {
 
 // Create a new task
 export const createTask = async (userId: string, title: string, description: string, priority: Priority): Promise<string | null> => {
-  if (typeof window === 'undefined') {
-    console.warn('Firebase not available in server environment');
+  if (typeof window === 'undefined' || !database) {
+    console.warn('Firebase not available or not initialized');
     return null;
   }
   
@@ -97,6 +97,11 @@ export const createTask = async (userId: string, title: string, description: str
 
 // Get all tasks for a user
 export const getUserTasks = async (userId: string): Promise<TodoTask[]> => {
+  if (typeof window === 'undefined' || !database) {
+    console.warn('Firebase not available or not initialized');
+    return [];
+  }
+  
   try {
     const tasksRef = ref(database, `tasks/${userId}`);
     const snapshot = await get(tasksRef);
@@ -117,6 +122,11 @@ export const getUserTasks = async (userId: string): Promise<TodoTask[]> => {
 
 // Update a task
 export const updateTask = async (userId: string, taskId: string, updates: Partial<TodoTask>): Promise<boolean> => {
+  if (typeof window === 'undefined' || !database) {
+    console.warn('Firebase not available or not initialized');
+    return false;
+  }
+  
   try {
     const taskRef = ref(database, `tasks/${userId}/${taskId}`);
     await set(taskRef, {
@@ -133,6 +143,11 @@ export const updateTask = async (userId: string, taskId: string, updates: Partia
 
 // Delete a task
 export const deleteTask = async (userId: string, taskId: string): Promise<boolean> => {
+  if (typeof window === 'undefined' || !database) {
+    console.warn('Firebase not available or not initialized');
+    return false;
+  }
+  
   try {
     const taskRef = ref(database, `tasks/${userId}/${taskId}`);
     await remove(taskRef);
@@ -146,6 +161,11 @@ export const deleteTask = async (userId: string, taskId: string): Promise<boolea
 
 // Toggle task completion
 export const toggleTaskCompletion = async (userId: string, taskId: string, completed: boolean): Promise<boolean> => {
+  if (typeof window === 'undefined' || !database) {
+    console.warn('Firebase not available or not initialized');
+    return false;
+  }
+  
   try {
     const taskRef = ref(database, `tasks/${userId}/${taskId}`);
     const snapshot = await get(taskRef);
@@ -168,6 +188,11 @@ export const toggleTaskCompletion = async (userId: string, taskId: string, compl
 
 // Add comment to task
 export const addComment = async (userId: string, taskId: string, text: string, userName: string): Promise<boolean> => {
+  if (typeof window === 'undefined' || !database) {
+    console.warn('Firebase not available or not initialized');
+    return false;
+  }
+  
   try {
     const taskRef = ref(database, `tasks/${userId}/${taskId}`);
     const snapshot = await get(taskRef);
@@ -200,8 +225,8 @@ export const addComment = async (userId: string, taskId: string, text: string, u
 
 // Listen to real-time task updates
 export const listenToUserTasks = (userId: string, callback: (tasks: TodoTask[]) => void) => {
-  if (typeof window === 'undefined') {
-    console.warn('Firebase not available in server environment');
+  if (typeof window === 'undefined' || !database) {
+    console.warn('Firebase not available or not initialized');
     return null;
   }
   
@@ -236,6 +261,11 @@ export const editTask = async (
   description: string, 
   priority: Priority
 ): Promise<boolean> => {
+  if (typeof window === 'undefined' || !database) {
+    console.warn('Firebase not available or not initialized');
+    return false;
+  }
+  
   try {
     const taskRef = ref(database, `tasks/${userId}/${taskId}`);
     const snapshot = await get(taskRef);
@@ -266,6 +296,11 @@ export const editComment = async (
   commentId: string, 
   newText: string
 ): Promise<boolean> => {
+  if (typeof window === 'undefined' || !database) {
+    console.warn('Firebase not available or not initialized');
+    return false;
+  }
+  
   try {
     const taskRef = ref(database, `tasks/${userId}/${taskId}`);
     const snapshot = await get(taskRef);
@@ -301,6 +336,11 @@ export const deleteComment = async (
   taskId: string, 
   commentId: string
 ): Promise<boolean> => {
+  if (typeof window === 'undefined' || !database) {
+    console.warn('Firebase not available or not initialized');
+    return false;
+  }
+  
   try {
     const taskRef = ref(database, `tasks/${userId}/${taskId}`);
     const snapshot = await get(taskRef);

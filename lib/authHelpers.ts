@@ -17,8 +17,8 @@ export interface UserProfile {
 
 // Create new user account
 export const createAccount = async (email: string, password: string, displayName: string) => {
-  if (typeof window === 'undefined') {
-    return { success: false, error: 'Firebase not available in server environment' };
+  if (typeof window === 'undefined' || !auth || !database) {
+    return { success: false, error: 'Firebase not available or not properly initialized' };
   }
   
   try {
@@ -49,8 +49,8 @@ export const createAccount = async (email: string, password: string, displayName
 
 // Sign in existing user
 export const signIn = async (email: string, password: string) => {
-  if (typeof window === 'undefined') {
-    return { success: false, error: 'Firebase not available in server environment' };
+  if (typeof window === 'undefined' || !auth) {
+    return { success: false, error: 'Firebase not available or not properly initialized' };
   }
   
   try {
@@ -65,8 +65,8 @@ export const signIn = async (email: string, password: string) => {
 
 // Sign out user
 export const signOutUser = async () => {
-  if (typeof window === 'undefined') {
-    return { success: false, error: 'Firebase not available in server environment' };
+  if (typeof window === 'undefined' || !auth) {
+    return { success: false, error: 'Firebase not available or not properly initialized' };
   }
   
   try {
@@ -81,7 +81,7 @@ export const signOutUser = async () => {
 
 // Get user profile from database
 export const getUserProfile = async (uid: string): Promise<UserProfile | null> => {
-  if (typeof window === 'undefined') {
+  if (typeof window === 'undefined' || !database) {
     return null;
   }
   
@@ -96,7 +96,7 @@ export const getUserProfile = async (uid: string): Promise<UserProfile | null> =
 
 // Helper to get current user
 export const getCurrentUser = (): User | null => {
-  if (typeof window === 'undefined') {
+  if (typeof window === 'undefined' || !auth) {
     return null;
   }
   return auth.currentUser;
