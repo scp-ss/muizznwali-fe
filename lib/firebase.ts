@@ -1,8 +1,8 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getDatabase } from "firebase/database";
-import { getAuth } from "firebase/auth";
-import { getAnalytics } from "firebase/analytics";
+import { initializeApp, getApps } from "firebase/app";
+import { getDatabase, Database } from "firebase/database";
+import { getAuth, Auth } from "firebase/auth";
+import { getAnalytics, Analytics } from "firebase/analytics";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -16,16 +16,24 @@ const firebaseConfig = {
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
+// Initialize Firebase only if no apps exist and we're in browser
+const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
 
-// Initialize Realtime Database and get a reference to the service
-export const database = getDatabase(app);
+// Initialize services only in browser environment
+let database: Database;
+let auth: Auth;
+let analytics: Analytics | null = null;
 
-// Initialize Firebase Authentication and get a reference to the service
-export const auth = getAuth(app);
+if (typeof window !== 'undefined') {
+  // Initialize Realtime Database and get a reference to the service
+  database = getDatabase(app);
+  
+  // Initialize Firebase Authentication and get a reference to the service
+  auth = getAuth(app);
+  
+  // Initialize Analytics
+  analytics = getAnalytics(app);
+}
 
-// Initialize Analytics (only in browser environment)
-export const analytics = typeof window !== 'undefined' ? getAnalytics(app) : null;
-
+export { database, auth, analytics };
 export default app;

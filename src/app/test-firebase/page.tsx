@@ -57,13 +57,21 @@ export default function TestFirebase() {
 
   // Test real-time listening
   useEffect(() => {
-    listenToData('posts', (data) => {
+    // Only run in browser environment
+    if (typeof window === 'undefined') return;
+    
+    const dbRef = listenToData('posts', (data) => {
       setPosts(data as Record<string, unknown>);
     });
 
     return () => {
       // Cleanup listener when component unmounts
-      // Note: In a real app you'd properly cleanup the listener
+      if (dbRef) {
+        // Import and use the cleanup function
+        import('../../../lib/database').then(({ stopListening }) => {
+          stopListening(dbRef);
+        });
+      }
     };
   }, []);
 

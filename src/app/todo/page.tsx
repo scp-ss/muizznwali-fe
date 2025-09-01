@@ -75,7 +75,9 @@ function TodoApp() {
       });
 
       return () => {
-        stopListeningToTasks(tasksRef);
+        if (tasksRef) {
+          stopListeningToTasks(tasksRef);
+        }
       };
     }
   }, [user, sortBy]);

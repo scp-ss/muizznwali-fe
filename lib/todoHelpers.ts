@@ -66,6 +66,11 @@ export const PRIORITY_LABELS = {
 
 // Create a new task
 export const createTask = async (userId: string, title: string, description: string, priority: Priority): Promise<string | null> => {
+  if (typeof window === 'undefined') {
+    console.warn('Firebase not available in server environment');
+    return null;
+  }
+  
   try {
     const tasksRef = ref(database, `tasks/${userId}`);
     const newTaskRef = push(tasksRef);
@@ -195,6 +200,11 @@ export const addComment = async (userId: string, taskId: string, text: string, u
 
 // Listen to real-time task updates
 export const listenToUserTasks = (userId: string, callback: (tasks: TodoTask[]) => void) => {
+  if (typeof window === 'undefined') {
+    console.warn('Firebase not available in server environment');
+    return null;
+  }
+  
   const tasksRef = ref(database, `tasks/${userId}`);
   onValue(tasksRef, (snapshot) => {
     if (snapshot.exists()) {
@@ -212,8 +222,10 @@ export const listenToUserTasks = (userId: string, callback: (tasks: TodoTask[]) 
 };
 
 // Stop listening to task updates
-export const stopListeningToTasks = (tasksRef: DatabaseReference) => {
-  off(tasksRef);
+export const stopListeningToTasks = (tasksRef: DatabaseReference | null) => {
+  if (tasksRef) {
+    off(tasksRef);
+  }
 };
 
 // Edit task details (title, description, priority)
