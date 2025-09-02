@@ -1,10 +1,7 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-// /pages/api/firebase/debug-env.ts
+// src/app/api/debug/firebase/env/route.ts
 
-import type { NextApiRequest, NextApiResponse } from 'next'
-
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
-  const firebaseEnv = {
+export async function GET() {
+  const rawEnv = {
     apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
     authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
     databaseURL: process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL,
@@ -15,11 +12,27 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
   }
 
-  res.status(200).json({
-    status: 'ok',
-    firebaseEnv,
-    missing: Object.entries(firebaseEnv)
-      .filter(([_, value]) => !value)
-      .map(([key]) => key),
-  })
+  const firebaseEnv = Object.entries(rawEnv).reduce((acc, [key, value]) => {
+    acc[key] = {
+      value: value ?? null,
+      accessible: Boolean(value),
+    }
+    return acc
+  }, {} as Record<string, { value: string | null; accessible: boolean }>)
+
+  const missing = Object.entries(firebaseEnv)
+    .filter(([, meta]) => !meta.accessible)
+    .map(([key]) => key)
+
+  return new Response(
+    JSON.stringify({
+      status: 'ok',
+      firebaseEnv,
+      missing,
+    }),
+    {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+    }
+  )
 }
