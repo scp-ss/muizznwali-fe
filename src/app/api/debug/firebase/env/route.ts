@@ -10,6 +10,7 @@ export async function GET() {
     messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
     appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
     measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
+    measuremenId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_D,
   }
 
   const firebaseEnv = Object.entries(rawEnv).reduce((acc, [key, value]) => {

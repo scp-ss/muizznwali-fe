@@ -4,7 +4,8 @@ import {
   signInWithEmailAndPassword, 
   signOut, 
   User,
-  updateProfile
+  updateProfile,
+  sendPasswordResetEmail
 } from 'firebase/auth';
 import { ref, set, get } from 'firebase/database';
 
@@ -91,6 +92,37 @@ export const getUserProfile = async (uid: string): Promise<UserProfile | null> =
   } catch (error) {
     console.error('Error getting user profile:', error);
     return null;
+  }
+};
+
+// Reset user password
+export const resetPassword = async (email: string) => {
+  if (typeof window === 'undefined' || !auth) {
+    return { success: false, error: 'Firebase not available or not properly initialized' };
+  }
+  
+  try {
+    await sendPasswordResetEmail(auth, email);
+    console.log('Password reset email sent successfully');
+    return { success: true };
+  } catch (error: unknown) {
+    console.error('Error sending password reset email:', error);
+    let errorMessage = 'Unknown error';
+    
+    if (error instanceof Error) {
+      // Handle specific Firebase Auth error codes
+      if (error.message.includes('auth/user-not-found')) {
+        errorMessage = 'No account found with this email address.';
+      } else if (error.message.includes('auth/invalid-email')) {
+        errorMessage = 'Please enter a valid email address.';
+      } else if (error.message.includes('auth/too-many-requests')) {
+        errorMessage = 'Too many requests. Please try again later.';
+      } else {
+        errorMessage = error.message;
+      }
+    }
+    
+    return { success: false, error: errorMessage };
   }
 };
 
