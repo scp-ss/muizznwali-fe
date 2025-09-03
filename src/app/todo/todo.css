@@ -1060,7 +1060,7 @@
 .comment-submit:hover:not(:disabled) {
   background-color: #1d4ed8;
 }
-
+/*e*/
 .comment-submit:disabled {
   opacity: 0.5;
   cursor: not-allowed;
