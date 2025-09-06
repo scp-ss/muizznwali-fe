@@ -15,8 +15,8 @@
   
   /* Gradients */
   --auth-gradient-primary: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
-  --auth-gradient-background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-  --auth-gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%);
+  --auth-gradient-background: linear-gradient(135deg, #328de7 0%, #364e6d 100%);
+  --auth-gradient-glass: linear-gradient(135deg, rgba(249, 0, 0, 0.9) 0%, rgba(255, 48, 48, 0.7) 100%);
   
   /* Spacing */
   --auth-spacing-xs: 0.25rem;
@@ -56,6 +56,7 @@
   --auth-transition-normal: 300ms ease-in-out;
   --auth-transition-slow: 500ms ease-in-out;
 }
+
 
 /* ================================
    Keyframe Animations
@@ -383,11 +384,11 @@
   inset: 0;
   background: linear-gradient(
     135deg,
-    #f0f9ff 0%,
-    #e0e7ff 25%,
-    #f3f4f6 50%,
-    #e0e7ff 75%,
-    #f0f9ff 100%
+    #8c969c 0%,
+    #5567a1 25%,
+    #ab2d2d 50%,
+    #24262d 75%,
+    #338dca 100%
   );
   z-index: 1;
 }

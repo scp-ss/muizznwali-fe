@@ -1052,7 +1052,7 @@
   background-color: #2563eb;
   color: white;
   border-radius: 0.5rem;
-  transition: all 0.2s;
+  /* transition: all 0.2s; */
   cursor: pointer;
   border: none;
 }
