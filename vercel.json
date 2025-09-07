@@ -1,7 +1,7 @@
 {
   "functions": {
     "src/app/api/**/*.py": {
-      "runtime": "python3.9",
+      "runtime": "python@3.13.5",
       "maxDuration": 30
     }
   },
@@ -14,7 +14,7 @@
   "buildCommand": "npm run build-all",
   "installCommand": "npm install && pip install -r requirements.txt",
   "env": {
-    "PYTHONPATH": "/usr/local/bin/python@3.13",
+    "PYTHONPATH": "/usr/local/bin/python3.13.5",
     "PIP_CACHE_DIR": "/tmp/pip-cache"
   }
 }
