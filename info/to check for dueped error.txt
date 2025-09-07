@@ -1,0 +1,19 @@
+
+to check for dueped error 
+do 
+PS C:\Users\muizz\Desktop\Programming\project\MainWebsite\muizznwali> npm ls react react-dom
+
+(usually this will cause )
+
+[TypeError: Cannot read properties of null (reading 'useContext')]
+Error occurred prerendering page "/404". Read more: https://nextjs.org/docs/messages/prerender-error
+[TypeError: Cannot read properties of null (reading 'useContext')]
+Export encountered an error on /_error: /404, exiting the build.
+ ⨯ Next.js build worker exited with code: 1 and signal: null
+ errors
+
+
+ > npm dedupe for check
+
+in use client thingy
+ <ClientProviders>

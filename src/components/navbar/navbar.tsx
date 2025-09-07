@@ -11,6 +11,7 @@ const Navbar = () => {
     { name: "Todo App", href: "/todo" },
     { name: "Heavy Duty Calculator", href: "/heavy-duty-calculator" },
     { name: "Downloads", href: "/downloads" },
+    { name: "Extra Apps", href: "/Extraapps" },
   ];
 
   return (
@@ -31,3 +32,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+//The woods
