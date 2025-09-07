@@ -1,5 +1,8 @@
+import { AuthProvider } from "../../contexts/AuthContext"
+
 export default function HomePage() {
   return (
+    <AuthProvider>
     <main className="max-w-3xl mx-auto space-y-10">
       <h1 className="main-heading">Welcome to Our Dev & Creator Hub</h1>
 
@@ -73,5 +76,6 @@ export default function HomePage() {
         </p>
       </section>
     </main>
+    </AuthProvider>
   );
 }

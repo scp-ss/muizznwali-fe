@@ -1,4 +1,5 @@
 import AdminLayoutClient from './adminLayoutClient';
+//import { AuthProvider } from "../../../contexts/AuthContext";
 
 export default function AdminLayout({
   children,
@@ -7,5 +8,9 @@ export default function AdminLayout({
 }) {
   // The middleware already handles authentication,
   // so we just need to provide the layout
-  return <AdminLayoutClient>{children}</AdminLayoutClient>;
+  return(
+  //<AuthProvider>
+    <AdminLayoutClient>{children}</AdminLayoutClient>
+  //</AuthProvider>
+  )
 }

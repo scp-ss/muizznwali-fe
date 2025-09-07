@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { AuthProvider, useAuth } from '../../../contexts/AuthContext';
 import AuthForm from '../../../components/AuthForm';
 import { signOutUser } from '../../../lib/authHelpers';
-import './todo.css';
+import '../todo.css';
 import { 
   createTask, 
   listenToUserTasks, 

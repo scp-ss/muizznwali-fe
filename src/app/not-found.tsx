@@ -1,3 +1,4 @@
+// app/not-found.tsx
 export default function NotFoundPage() {
   return (
     <section className="min-h-screen flex flex-col items-center justify-center text-center p-6">

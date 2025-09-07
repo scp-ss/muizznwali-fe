@@ -27,7 +27,6 @@ export async function POST(request: NextRequest) {
       { success: true, message: 'Login successful' },
       { status: 200 }
     );
-
     // Set secure authentication cookie
     response.cookies.set(
       AUTH_COOKIE_CONFIG.name,

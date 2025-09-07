@@ -4,7 +4,7 @@ import Navbar from "@/components/navbar/navbar";
 import "@/css/astetics.css";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
-
+//import { AuthProvider } from "../../contexts/AuthContext";
 export const metadata: Metadata = {
   title: "Muizz N Wali",
   description: "Main Website",
@@ -33,6 +33,7 @@ const adBannerHTMLreferral = `
 `*/ 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
+   // <AuthProvider>
     <html lang="en" className="scroll-smooth">
       
        {/* 
@@ -122,5 +123,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main className="max-w-7xl mx-auto px-4 py-8">{children}</main>
       </body>
     </html>
+   // </AuthProvider>
   );
 }
