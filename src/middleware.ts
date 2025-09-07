@@ -13,7 +13,7 @@ export function middleware(request: NextRequest) {
   if (pathname === '/admin/login') {
     return NextResponse.next();
   }
-
+//TWK
   // For other admin routes, check authentication
   const authCookie = request.cookies.get('admin-auth');
   const isAuthenticated = authCookie?.value === 'authenticated';
