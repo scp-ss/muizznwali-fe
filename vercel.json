@@ -1,7 +1,7 @@
 {
   "functions": {
     "src/app/api/**/*.py": {
-      "runtime": "python@3.13",
+      "runtime": "python3.9",
       "maxDuration": 30
     }
   },
