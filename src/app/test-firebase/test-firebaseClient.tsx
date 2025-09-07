@@ -1,4 +1,4 @@
-'use client';
+{/*'use client';
 
 import { useState, useEffect } from 'react';
 import { writeData, readData, addData, listenToData } from '../../../lib/database';
@@ -142,3 +142,4 @@ export default function TestFirebase() {
     </div>
   );
 }
+*/}

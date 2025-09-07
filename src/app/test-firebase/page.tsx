@@ -1,4 +1,4 @@
-import TestFirebase from "./test-firebaseClient";
+//import TestFirebase from "./test-firebaseClient";
 import { Metadata } from "next";
 
 export const revalidate = 10; // ISR works here
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function Test_FirebasePage() {
 return (
-  <TestFirebase />
+  <p> Fire </p>
 )
 
 }
