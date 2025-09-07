@@ -1,0 +1,26 @@
+﻿
+> muizznwali@0.1.0 build
+> next build --turbopack
+
+   Γû▓ Next.js 15.5.2 (Turbopack)
+   - Environments: .env.local, .env
+
+   Creating an optimized production build ...
+ Γ£ô Finished writing to disk in 150ms
+ Γ£ô Compiled successfully in 10.4s
+   Linting and checking validity of types ...
+node.exe :  Γ¿» ESLint: ESLint configuration in  is invalid: 	- Property "extends" is the wrong type (expected string but got `[["next/core-web-vitals","next/typescript"]]`). 	- Property "extends[0]" is the wrong type 
+(expected string but got `["next/core-web-vitals","next/typescript"]`). 	- "extends" should match exactly one schema in oneOf. Value: [["next/core-web-vitals","next/typescript"]]. 
+At line:1 char:1
++ & "C:\Program Files\nodejs/node.exe" "C:\Users\muizz\AppData\Roaming\ ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ( Γ¿» ESLint: ES...typescript"]]. :String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+   Collecting page data ...
+   Generating static pages (0/21) ...
+[TypeError: Cannot read properties of null (reading 'useContext')]
+Error occurred prerendering page "/404". Read more: https://nextjs.org/docs/messages/prerender-error
+[TypeError: Cannot read properties of null (reading 'useContext')]
+Export encountered an error on /_error: /404, exiting the build.
+ Γ¿» Next.js build worker exited with code: 1 and signal: null

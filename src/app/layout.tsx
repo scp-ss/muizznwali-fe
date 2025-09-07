@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import "./../appstyles/css/globals.css";
 import Navbar from "@/components/navbar/navbar";
 import "@/css/astetics.css";
-import { SpeedInsights } from "@vercel/speed-insights/next";
-import { Analytics } from "@vercel/analytics/next";
-//import { AuthProvider } from "../../contexts/AuthContext";
+//import { SpeedInsights } from "@vercel/speed-insights/next";
+//import { Analytics } from "@vercel/analytics/next";
+import { AuthProvider } from "../../contexts/AuthContext";
 export const metadata: Metadata = {
   title: "Muizz N Wali",
   description: "Main Website",
@@ -33,7 +33,7 @@ const adBannerHTMLreferral = `
 `*/ 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-   // <AuthProvider>
+    <AuthProvider>
     <html lang="en" className="scroll-smooth">
       
        {/* 
@@ -118,11 +118,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <div dangerouslySetInnerHTML={{ __html: adBannerHTMLreferral }} />
          */}
         <Navbar />
-        <SpeedInsights />
-        <Analytics />
+       {/*<SpeedInsights />
+        <Analytics />*/}
         <main className="max-w-7xl mx-auto px-4 py-8">{children}</main>
       </body>
     </html>
-   // </AuthProvider>
+    </AuthProvider>
   );
 }

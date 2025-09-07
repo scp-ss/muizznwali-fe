@@ -7,6 +7,6 @@ export const metadata: Metadata = {
   title: "AI Page | Muizz N Wali",
   description: "Page for an AI's on the Muizz N Wali website",
 };
-export default function HeavyDutyCalculatorPage() {
+export default function AiPage() {
   return <AiClient />;
 }

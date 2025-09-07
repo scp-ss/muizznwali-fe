@@ -13,20 +13,31 @@ interface AuthContextType {
   loading: boolean;
 }
 
-const AuthContext = createContext<AuthContextType>({
-  user: null,
-  userProfile: null,
-  loading: true,
-});
+const AuthContext = createContext<AuthContextType | null>(null);
+
+
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
+
+  // During SSR or if context is not available, return default values
+  if (context === null) {
+    return {
+      user: null,
+      userProfile: null,
+      loading: true,
+    };
+  }
+
+  return context;
+{/*
   if (!context) {
     throw new Error('useAuth must be used within an AuthProvider');
   }
   return context;
-};
+   */}
 
+};
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
@@ -63,8 +74,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return () => unsubscribe();
   }, []);
 
+  const contextValue: AuthContextType = { user, userProfile, loading };
+
   return (
-    <AuthContext.Provider value={{ user, userProfile, loading }}>
+    <AuthContext.Provider value={contextValue}>
       {children}
     </AuthContext.Provider>
   );

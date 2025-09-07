@@ -1,6 +1,5 @@
-import { AuthProvider } from "../../../contexts/AuthContext";
 import AdminClient from "./adminClient";
-import type { Metadata } from "next"; 
+import type { Metadata } from "next";
 
 export const revalidate = 10; // ISR works here
 export const metadata: Metadata = {
@@ -11,8 +10,6 @@ export const metadata: Metadata = {
 
 export default function AdminPage() {
   return (
-    <AuthProvider>
-      <AdminClient />
-    </AuthProvider>
+    <AdminClient />
   );
 }

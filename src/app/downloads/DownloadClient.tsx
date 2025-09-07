@@ -24,7 +24,7 @@ const downloads = [
 };
  */}
 
-const DownloadsPage = () => {
+const DownloadsPageClient = () => {
   return (
     <div className="container">
       <h1>Downloads</h1>
@@ -48,4 +48,4 @@ const DownloadsPage = () => {
   );
 };
 
-export default DownloadsPage;
+export default DownloadsPageClient;
