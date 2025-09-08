@@ -4,7 +4,7 @@ import "./abt-section.css";
 const SmallAboutSection: React.FC = () => {
   return (
     <section className="small-about-section">
-      <h2>🧠 About the Heavy Duty Calculator</h2>
+      <h2> About the Heavy Duty Calculator</h2>
       <p>
         Most calculators sacrifice precision when dealing with extremely large or small numbers.
         They round off values, drop decimals, and simplify results—sometimes drastically.
@@ -34,7 +34,7 @@ const SmallAboutSection: React.FC = () => {
         </div>
 
         <div className="comparison">
-          <h3>✅ Heavy Duty Calculator</h3>
+          <h3> Heavy Duty Calculator</h3>
           <pre>
 {`99999999999999999999 × 100
 = 9999999999999999999900   // Full precision
@@ -50,7 +50,7 @@ const SmallAboutSection: React.FC = () => {
 
 1.00000000E+22 - 10
 = 9999999999999999999990   // Accurate result
-(Use "Display Full Value" to reveal exact digits)`}
+(Use "Display Full Value" to reveal exact digits) other-wise it will display in eular notation`}
           </pre>
         </div>
       </div>

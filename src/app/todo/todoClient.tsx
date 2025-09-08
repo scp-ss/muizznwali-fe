@@ -219,7 +219,7 @@ function TodoApp() {
                   Your Todo Universe
                 </h1>
                 <p className="hero-subtitle">
-                  Welcome back, <span className="hero-name">{userProfile?.displayName}</span>! ✨
+                  Welcome back, <span className="hero-name">{userProfile?.displayName}</span>! 
                 </p>
                 
                 {/* Quick Stats */}
@@ -288,7 +288,7 @@ function TodoApp() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                   </svg>
                 </div>
-                <span className="create-task-text">✨ Create Magic</span>
+                <span className="create-task-text">{/*✨*/} Create Magic</span>
               </div>
             </button>
           </div>
@@ -300,7 +300,7 @@ function TodoApp() {
             <div className="filter-pills">
               {(['all', 'active', 'completed'] as const).map((filterOption, index) => {
                 const isActive = filter === filterOption;
-                const icons = ['🌟', '⚡', '✅'];
+                //const icons = ['🌟', '⚡', '✅'];
                 
                 return (
                   <button
@@ -314,7 +314,7 @@ function TodoApp() {
                     )}
                     
                     <div className="filter-content">
-                      <span className="filter-icon">{icons[index]}</span>
+                     {/** <span className="filter-icon">{icons[index]}</span> */}
                       <span className="filter-text">
                         {filterOption.charAt(0).toUpperCase() + filterOption.slice(1)}
                       </span>
@@ -340,9 +340,9 @@ function TodoApp() {
                 onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
                 className="sort-dropdown"
               >
-                <option value="priority">🎯 Priority Magic</option>
-                <option value="date">📅 Time Travel</option>
-                <option value="alphabetical">🔤 Alpha Sort</option>
+                <option value="priority"> Priority Wise</option>
+                <option value="date">Time Wise </option>
+                <option value="alphabetical"> Alphabetically</option>
               </select>
               
               {/* Custom dropdown arrow */}
