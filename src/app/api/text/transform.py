@@ -7,7 +7,7 @@ def main():
     Reads JSON from stdin and outputs transformed text to stdout.
     """
     try:
-        # Read all input from stdin
+       
         input_data = ""
         for line in sys.stdin:
             input_data += line
@@ -17,7 +17,7 @@ def main():
             print(json.dumps(result))
             return
 
-        # Parse JSON input
+       
         data = json.loads(input_data.strip())
         input_text = data.get('text', '')
 
@@ -26,14 +26,14 @@ def main():
             print(json.dumps(result))
             return
 
-        # Transform the text
+       
         transformed_text = ""
         for char in input_text:
             if char == ' ':
-                # If it's already a space, add 4 more spaces (total 5 spaces)
+               
                 transformed_text += '     '
             else:
-                # Capitalize the letter and add 2 spaces
+               
                 transformed_text += char.upper() + '  '
 
         result = {

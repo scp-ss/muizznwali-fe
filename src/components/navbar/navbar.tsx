@@ -12,6 +12,7 @@ const Navbar = () => {
     { name: "Heavy Duty Calculator", href: "/heavy-duty-calculator" },
     { name: "Downloads", href: "/downloads" },
     { name: "Extra Apps", href: "/Extraapps" },
+    { name: "API's", href: "/api" },
   ];
 
   return (
