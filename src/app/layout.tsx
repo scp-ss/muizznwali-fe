@@ -119,6 +119,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="fc1279abd204ac51eb717a7fed308fbe12f00504" content="fc1279abd204ac51eb717a7fed308fbe12f00504" />
         */}
         <meta name="google-adsense-account" content="ca-pub-8243831335530194"></meta>
+        
+        {process.env.NODE_ENV === "production" && (
+          <script 
+          async 
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8243831335530194" 
+          crossOrigin="anonymous"
+          ></script>
+        )}
 </head>
       <body className="bg-gray-50 text-gray-900 antialiased">
         {/*
