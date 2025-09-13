@@ -6,6 +6,7 @@ import "@/css/astetics.css";
 //import { Analytics } from "@vercel/analytics/next";
 import { AuthProvider } from "../../contexts/AuthContext";
 import Script from "next/script";
+import AdSenseClientComponent from "@/components/adss/adsense/2/AdSenseClientComponent";
 export const metadata: Metadata = {
   title: "Muizz N Wali",
   description: "Main Website",
@@ -129,10 +130,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         )}
 </head>
       <body className="bg-gray-50 text-gray-900 antialiased">
+      
+
+
+
         {/*
         <div dangerouslySetInnerHTML={{ __html: adBannerHTMLreferral }} />
          */}
         <Navbar />
+        <AdSenseClientComponent />
        {/*<SpeedInsights />
         <Analytics />*/}
         <main className="max-w-7xl mx-auto px-4 py-8">{children}</main>
