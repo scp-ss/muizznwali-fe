@@ -1,0 +1,3 @@
+PS C:\Users\muizz> $body = '{"text": "Hello, this is a test message"}'
+PS C:\Users\muizz> $response = Invoke-RestMethod -Uri "http://localhost:3000/api/text" -Method POST -Body $body -ContentType "application/json"
+PS C:\Users\muizz> $response

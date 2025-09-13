@@ -5,6 +5,7 @@ import "@/css/astetics.css";
 //import { SpeedInsights } from "@vercel/speed-insights/next";
 //import { Analytics } from "@vercel/analytics/next";
 import { AuthProvider } from "../../contexts/AuthContext";
+import Script from "next/script";
 export const metadata: Metadata = {
   title: "Muizz N Wali",
   description: "Main Website",
@@ -106,12 +107,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     </>
   )}
 */}
+<script
+  async
+  src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8243831335530194"
+  crossOrigin="anonymous"
+/>
 
 <head>
           {
         /*<meta name="referrer" content="no-referrer-when-downgrade" />
         <meta name="fc1279abd204ac51eb717a7fed308fbe12f00504" content="fc1279abd204ac51eb717a7fed308fbe12f00504" />
         */}
+        <meta name="google-adsense-account" content="ca-pub-8243831335530194"></meta>
 </head>
       <body className="bg-gray-50 text-gray-900 antialiased">
         {/*
