@@ -1,8 +1,8 @@
 "use client";
 import React, { useEffect, useRef } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+//import { useRouter, useSearchParams } from "next/navigation";
 //import { isMobile } from "react-device-detect";
-import { usePathname } from "next/navigation";
+//import { usePathname } from "next/navigation";
 
 declare global {
   interface Window {
@@ -11,14 +11,15 @@ declare global {
 }
 
 const AdSenseClientComponent = () => {
-  const router = useRouter();
+
+  const adRef = useRef<HTMLDivElement>(null);
+{/*
+    const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const url = `${pathname}?${searchParams}`;
   console.log('MidbaseCmp -> router changed ', url);
-
-  const adRef = useRef<HTMLDivElement>(null);
-
+*/}
   useEffect(() => {
     if (process.env.NODE_ENV !== 'production') return;
 

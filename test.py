@@ -4,12 +4,12 @@ import math
 from decimal import Decimal, InvalidOperation
 import cmath
 
-# Set decimal context to handle larger numbers
-decimal.getcontext().prec = 1000  # Set precision to 1000 digits
-decimal.getcontext().Emax = 1000000  # Set maximum exponent to 1,000,000
-decimal.getcontext().Emin = -1000000  # Set minimum exponent to -1,000,000
 
-# Global variable for step-by-step evaluation steps
+decimal.getcontext().prec = 1000  
+decimal.getcontext().Emax = 1000000  
+decimal.getcontext().Emin = -1000000  
+
+
 sbse = []
 
 class BigNumber:
@@ -20,11 +20,11 @@ class BigNumber:
                 self.decimal_pos = None
                 return
                 
-            # Remove any existing scientific notation
+            
             if 'E' in value:
                 value = self._from_scientific(value)
             
-            # Handle decimal point
+            
             if '.' in value:
                 integer_part, fractional_part = value.split('.')
                 self.decimal_pos = len(integer_part)
@@ -33,16 +33,16 @@ class BigNumber:
                 self.decimal_pos = len(value)
                 digits = value
                 
-            # Remove leading zeros (but keep at least one zero if number is zero)
+            
             digits = digits.lstrip('0')
             if not digits:
                 digits = '0'
                 self.decimal_pos = 1
             else:
-                # Adjust decimal position after stripping zeros
+                
                 self.decimal_pos = max(1, self.decimal_pos - (len(value) - len(digits)))
                 
-            # Break into chunks of 50 digits
+            
             self.chunks = [digits[i:i+50] for i in range(0, len(digits), 50)]
         else:
             self.chunks = chunks
@@ -99,37 +99,37 @@ class ExpressionEvaluator:
             '-': (2, lambda a, b: self._subtract(a, b))
         }
         
-        # Mathematical functions
+        
         self.functions = {
-            'sin': lambda x: str(Decimal(str(math.sin(float(x))))),
-            'cos': lambda x: str(Decimal(str(math.cos(float(x))))),
-            'tan': lambda x: str(Decimal(str(math.tan(float(x))))),
-            'sqrt': lambda x: str(Decimal(str(math.sqrt(float(x))))),
-            'log': lambda x: str(Decimal(str(math.log(float(x))))),
-            'log10': lambda x: str(Decimal(str(math.log10(float(x))))),
-            'exp': lambda x: str(Decimal(str(math.exp(float(x))))),
-            'abs': lambda x: str(Decimal(str(abs(float(x))))),
-            'floor': lambda x: str(Decimal(str(math.floor(float(x))))),
-            'ceil': lambda x: str(Decimal(str(math.ceil(float(x))))),
-            'round': lambda x: str(Decimal(str(round(float(x))))),
+            'sin': lambda x: self._trig(math.sin, x),
+            'cos': lambda x: self._trig(math.cos, x),
+            'tan': lambda x: self._trig(math.tan, x),
+            'sqrt': lambda x: self._sqrt(x),
+            'log': lambda x: self._log(x),
+            'log10': lambda x: self._log10(x),
+            'exp': lambda x: self._exp(x),
+            'abs': lambda x: self._abs(x),
+            'floor': lambda x: self._floor(x),
+            'ceil': lambda x: self._ceil(x),
+            'round': lambda x: self._round(x),
         }
         
-        # Constants
+        
         self.constants = {
             'pi': str(Decimal(str(math.pi))),
             'e': str(Decimal(str(math.e))),
         }
         
-        # Variables (can be set by user)
+        
         self.variables = {}
         
-        # Step-by-step evaluation steps
+        
         self.steps = []
     
     def set_variable(self, name, value):
         """Set a variable value"""
         try:
-            # Validate that the value is a valid number
+            
             Decimal(value)
             self.variables[name] = value
             return f"Variable '{name}' set to {value}"
@@ -145,32 +145,32 @@ class ExpressionEvaluator:
         global sbse
         
         try:
-            # Reset steps
+            
             self.steps = []
             
-            # Validate expression for invalid characters
+            
             self._validate_expression(expression)
             
-            # Preprocess expression
+            
             expr = self._preprocess(expression)
             
-            # Check for mismatched parentheses
+            
             if expr.count('(') != expr.count(')'):
                 raise ValueError("Mismatched parentheses")
             
-            # Evaluate using BODMAS
+            
             result = self._evaluate_expression(expr, show_steps)
             
-            # Convert to BigNumber and return as string
+            
             if result == 'inf':
                 result_str = 'inf'
             else:
                 result_str = str(BigNumber(result))
             
-            # Set global sbse variable
+            
             sbse = self.steps.copy()
             
-            # Return result with steps if requested
+            
             if show_steps:
                 return {"result": result_str, "steps": self.steps}
             return result_str
@@ -194,77 +194,135 @@ class ExpressionEvaluator:
     
     def _validate_expression(self, expr):
         """Validate expression for invalid characters"""
-        # Remove spaces and valid characters to check for invalid ones
+        
         valid_chars = set("0123456789.+-*/^()eE×· ")
         expr_no_spaces = expr.replace(' ', '')
         
         for char in expr_no_spaces:
             if char not in valid_chars and not char.isalpha():
                 raise ValueError(f"Invalid character '{char}' in expression")
-        
-        # Check for consecutive operators that don't make sense
-        invalid_patterns = [
-            r'[+\-*/^]{2,}',  # Multiple operators in a row
-            r'[+\-*/^]\)',     # Operator followed by closing parenthesis
-            r'\([+\-*/^]',     # Opening parenthesis followed by operator
-            r'[+\-*/^]$',      # Expression ends with operator
-            r'^[+\-*/^]',      # Expression starts with operator (except for leading minus)
-        ]
-        
-        for pattern in invalid_patterns:
-            if re.search(pattern, expr_no_spaces) and not (expr_no_spaces.startswith('-') and pattern == r'^[+\-*/^]'):
-                raise ValueError("Invalid operator sequence")
     
     def _preprocess(self, expr):
         """Handle implicit multiplication, scientific notation, functions, and variables"""
-        # Remove spaces
+        
         expr = expr.replace(' ', '')
         
-        # Replace multiplication symbols
+        
         expr = expr.replace('×', '*')
         expr = expr.replace('·', '*')
         
-        # Process functions and variables
-        expr = self._process_functions(expr)
-        expr = self._process_variables(expr)
+        
+        expr = self._process_signs_and_multiplication(expr)
+        
+        
         expr = self._process_constants(expr)
         
-        # Handle scientific notation followed by parentheses or variables
+        expr = self._process_variables(expr)
+        
+        expr = self._process_functions(expr)
+        
+        
         expr = re.sub(r'(\d+\.?\d*[eE][+-]?\d+)(\()', r'\1*\2', expr)
         expr = re.sub(r'(\d+\.?\d*[eE][+-]?\d+)([a-zA-Z])', r'\1*\2', expr)
         
-        # Handle implicit multiplication
-        expr = re.sub(r'(\))(\()', r'\1*\2', expr)    # )(
-        expr = re.sub(r'(\d)(\()', r'\1*\2', expr)    # digit(
-        expr = re.sub(r'(\))(\d)', r'\1*\2', expr)    # )digit
-        expr = re.sub(r'(\))([a-zA-Z])', r'\1*\2', expr)  # )variable
-        expr = re.sub(r'([a-zA-Z])(\()', r'\1*\2', expr)  # variable(
-        expr = re.sub(r'([a-zA-Z])(\d)', r'\1*\2', expr)  # variable digit
+        return expr
+    
+    def _process_signs_and_multiplication(self, expr):
+        """Process unary signs and implicit multiplication according to basic math rules"""
+        
+        
+        expr = re.sub(r'(\d)(\()', r'\1*\2', expr)    
+        expr = re.sub(r'(\))(\d)', r'\1*\2', expr)    
+        expr = re.sub(r'(\))([a-zA-Z])', r'\1*\2', expr)  
+        expr = re.sub(r'([a-zA-Z])(\()', r'\1*\2', expr)  
+        expr = re.sub(r'([a-zA-Z])(\d)', r'\1*\2', expr)  
+        expr = re.sub(r'(\d)([a-zA-Z])', r'\1*\2', expr)  
+        expr = re.sub(r'(\))(\()', r'\1*\2', expr)    
+        
+        
+        
+        tokens = []
+        i = 0
+        n = len(expr)
+        
+        while i < n:
+            if expr[i] in '+-':
+                
+                is_unary = False
+                
+                
+                if i == 0:
+                    is_unary = True
+                
+                elif i > 0 and expr[i-1] == '(':
+                    is_unary = True
+                
+                elif i > 0 and expr[i-1] in '+-*/^':
+                    is_unary = True
+                
+                if is_unary:
+                    if expr[i] == '-':
+                        tokens.append('u-')  
+                    
+                    i += 1
+                else:
+                    tokens.append(expr[i])
+                    i += 1
+            else:
+                tokens.append(expr[i])
+                i += 1
+        
+        
+        expr = ''.join(tokens)
         
         return expr
     
     def _process_functions(self, expr):
-        """Process mathematical functions"""
-        for func_name in self.functions:
-            pattern = rf'{func_name}\(([^)]+)\)'
-            while re.search(pattern, expr):
-                match = re.search(pattern, expr)
-                arg = match.group(1)
-                try:
-                    # Evaluate the argument first
-                    arg_value = self._evaluate_expression(arg)
-                    # Apply the function
-                    result = self.functions[func_name](arg_value)
-                    # Replace the function call with the result
-                    expr = expr.replace(match.group(0), result)
-                except Exception:
-                    raise ValueError(f"Error in function {func_name}")
+        """Process mathematical functions with proper handling of nested parentheses"""
+        
+        i = 0
+        while i < len(expr):
+            
+            matched = False
+            for func_name in self.functions:
+                if expr.startswith(func_name, i) and i+len(func_name) < len(expr) and expr[i+len(func_name)] == '(':
+                    
+                    
+                    start = i + len(func_name) + 1  
+                    count = 1
+                    j = start
+                    while j < len(expr) and count > 0:
+                        if expr[j] == '(':
+                            count += 1
+                        elif expr[j] == ')':
+                            count -= 1
+                        j += 1
+                    if count == 0:
+                        
+                        arg = expr[start:j-1]
+                        try:
+                            
+                            arg_value = self._evaluate_expression(arg)
+                            
+                            result = self.functions[func_name](arg_value)
+                            
+                            expr = expr[:i] + result + expr[j:]
+                            
+                            matched = True
+                            break
+                        except Exception as e:
+                            raise ValueError(f"Error in function {func_name}: {str(e)}")
+                    else:
+                        
+                        raise ValueError(f"Mismatched parentheses in function {func_name}")
+            if not matched:
+                i += 1
         return expr
     
     def _process_variables(self, expr):
         """Replace variables with their values"""
         for var_name, var_value in self.variables.items():
-            # Use word boundaries to avoid partial matches
+            
             pattern = rf'\b{var_name}\b'
             expr = re.sub(pattern, var_value, expr)
         return expr
@@ -272,7 +330,7 @@ class ExpressionEvaluator:
     def _process_constants(self, expr):
         """Replace constants with their values"""
         for const_name, const_value in self.constants.items():
-            # Use word boundaries to avoid partial matches
+            
             pattern = rf'\b{const_name}\b'
             expr = re.sub(pattern, const_value, expr)
         return expr
@@ -282,13 +340,80 @@ class ExpressionEvaluator:
         if show_steps:
             self.steps.append(f"Evaluating: {expr}")
         
-        # First handle parentheses
+        
+        while 'u-' in expr:
+            expr = self._evaluate_unary_minus(expr, show_steps)
+        
+        
         while '(' in expr:
             expr = self._evaluate_parentheses(expr, show_steps)
         
-        # Then evaluate operators in precedence order
+        
         for op in sorted(self.operators.keys(), key=lambda x: self.operators[x][0], reverse=True):
             expr = self._evaluate_operator(expr, op, show_steps)
+        
+        return expr
+    
+    def _evaluate_unary_minus(self, expr, show_steps=False):
+        """Evaluate unary minus operations"""
+        i = 0
+        while i < len(expr):
+            if expr.startswith('u-', i):
+                
+                j = i + 2  
+                
+                if j >= len(expr):
+                    raise ValueError("Incomplete unary minus operation")
+                
+                if expr[j] == '(':
+                    
+                    count = 1
+                    k = j + 1
+                    while k < len(expr) and count > 0:
+                        if expr[k] == '(':
+                            count += 1
+                        elif expr[k] == ')':
+                            count -= 1
+                        k += 1
+                    
+                    if count != 0:
+                        raise ValueError("Mismatched parentheses")
+                    
+                    operand = expr[j:k]
+                    
+                    
+                    operand_value = self._evaluate_expression(operand)
+                    
+                    
+                    if show_steps:
+                        self.steps.append(f"Evaluating: -({operand}) = -({operand_value})")
+                    result = self._apply_unary_minus(operand_value)
+                    if show_steps:
+                        self.steps.append(f"Result: {result}")
+                    
+                    
+                    expr = expr[:i] + result + expr[k:]
+                    
+                else:
+                    
+                    k = j
+                    while k < len(expr) and expr[k] not in '+-*/^()':
+                        k += 1
+                    
+                    operand = expr[j:k]
+                    
+                    
+                    if show_steps:
+                        self.steps.append(f"Evaluating: -{operand}")
+                    result = self._apply_unary_minus(operand)
+                    if show_steps:
+                        self.steps.append(f"Result: {result}")
+                    
+                    
+                    expr = expr[:i] + result + expr[k:]
+                    
+            else:
+                i += 1
         
         return expr
     
@@ -311,17 +436,19 @@ class ExpressionEvaluator:
     def _evaluate_operator(self, expr, op, show_steps=False):
         """Evaluate all instances of an operator in expression"""
         precedence, func = self.operators[op]
+        
+        
         pattern = r'([+\-*/^])'
         tokens = re.split(pattern, expr)
         
         i = 0
         while i < len(tokens):
             if tokens[i] == op:
-                # Get left and right operands
+                
                 left = tokens[i-1]
                 right = tokens[i+1]
                 
-                # Evaluate operation
+                
                 try:
                     if show_steps:
                         self.steps.append(f"Evaluating: {left} {op} {right}")
@@ -336,6 +463,22 @@ class ExpressionEvaluator:
         
         return ''.join(tokens)
     
+    def _apply_unary_minus(self, value):
+        """Apply unary minus to a value"""
+        try:
+            
+            if value in self.variables:
+                value = self.variables[value]
+            
+            
+            d = Decimal(value)
+            result = -d
+            
+            
+            return self._decimal_to_string(result)
+        except (InvalidOperation, ValueError, OverflowError) as e:
+            raise e
+    
     def _decimal_to_string(self, d):
         """Convert Decimal to string without scientific notation"""
         if d.is_infinite():
@@ -344,7 +487,7 @@ class ExpressionEvaluator:
             return 'NaN'
         
         sign, digits, exponent = d.as_tuple()
-        # Convert digits to string
+        
         digits_str = ''.join(str(digit) for digit in digits)
         
         if exponent >= 0:
@@ -366,13 +509,17 @@ class ExpressionEvaluator:
             a_dec = Decimal(a)
             b_dec = Decimal(b)
             
-            # Check for potential overflow
+            
+            if a_dec < 0 and b_dec != b_dec.to_integral_value():
+                raise ValueError("Negative base raised to fractional exponent results in complex number")
+            
+            
             if abs(b_dec) > 10000 and abs(a_dec) > 1:
                 return 'inf'
                 
             result = a_dec ** b_dec
             
-            # Check for overflow
+            
             if abs(result) > Decimal('1e1000000'):
                 return 'inf'
                 
@@ -391,7 +538,7 @@ class ExpressionEvaluator:
                 
             result = a_dec / b_dec
             
-            # Check for overflow
+            
             if abs(result) > Decimal('1e1000000'):
                 return 'inf'
                 
@@ -407,7 +554,7 @@ class ExpressionEvaluator:
             
             result = a_dec * b_dec
             
-            # Check for overflow
+            
             if abs(result) > Decimal('1e1000000'):
                 return 'inf'
                 
@@ -423,7 +570,7 @@ class ExpressionEvaluator:
             
             result = a_dec + b_dec
             
-            # Check for overflow
+            
             if abs(result) > Decimal('1e1000000'):
                 return 'inf'
                 
@@ -439,13 +586,114 @@ class ExpressionEvaluator:
             
             result = a_dec - b_dec
             
-            # Check for overflow
+            
             if abs(result) > Decimal('1e1000000'):
                 return 'inf'
                 
             return self._decimal_to_string(result)
         except (InvalidOperation, ValueError, OverflowError) as e:
             raise e
+    
+    
+    def _trig(self, func, x):
+        """Handle trigonometric functions with better range checking"""
+        try:
+            d = Decimal(x)
+            
+            
+            
+            
+            if abs(d) > Decimal('1e10'):
+                
+                two_pi = Decimal('2') * Decimal(str(math.pi))
+                d = d % two_pi
+            
+            
+            result = Decimal(str(func(float(d))))
+            return str(result)
+        except Exception as e:
+            raise ValueError(f"Error in trigonometric function: {str(e)}")
+    
+    def _sqrt(self, x):
+        """Handle square root using Decimal's sqrt method"""
+        try:
+            d = Decimal(x)
+            if d < 0:
+                raise ValueError("Square root of negative number")
+            result = d.sqrt()
+            return self._decimal_to_string(result)
+        except Exception as e:
+            raise ValueError(f"Error in sqrt function: {str(e)}")
+    
+    def _log(self, x):
+        """Handle natural logarithm using Decimal's ln method"""
+        try:
+            d = Decimal(x)
+            if d <= 0:
+                raise ValueError("Logarithm of non-positive number")
+            result = d.ln()
+            return self._decimal_to_string(result)
+        except Exception as e:
+            raise ValueError(f"Error in log function: {str(e)}")
+    
+    def _log10(self, x):
+        """Handle base-10 logarithm using Decimal's log10 method"""
+        try:
+            d = Decimal(x)
+            if d <= 0:
+                raise ValueError("Logarithm of non-positive number")
+            result = d.log10()
+            return self._decimal_to_string(result)
+        except Exception as e:
+            raise ValueError(f"Error in log10 function: {str(e)}")
+    
+    def _exp(self, x):
+        """Handle exponential using Decimal's exp method"""
+        try:
+            d = Decimal(x)
+            
+            if abs(d) > 1000:
+                raise ValueError("Exponent too large")
+            result = d.exp()
+            return self._decimal_to_string(result)
+        except Exception as e:
+            raise ValueError(f"Error in exp function: {str(e)}")
+    
+    def _abs(self, x):
+        """Handle absolute value using Decimal's abs method"""
+        try:
+            d = Decimal(x)
+            result = abs(d)
+            return self._decimal_to_string(result)
+        except Exception as e:
+            raise ValueError(f"Error in abs function: {str(e)}")
+    
+    def _floor(self, x):
+        """Handle floor using Decimal's to_integral_value method"""
+        try:
+            d = Decimal(x)
+            result = d.to_integral_value(rounding=decimal.ROUND_FLOOR)
+            return self._decimal_to_string(result)
+        except Exception as e:
+            raise ValueError(f"Error in floor function: {str(e)}")
+    
+    def _ceil(self, x):
+        """Handle ceiling using Decimal's to_integral_value method"""
+        try:
+            d = Decimal(x)
+            result = d.to_integral_value(rounding=decimal.ROUND_CEILING)
+            return self._decimal_to_string(result)
+        except Exception as e:
+            raise ValueError(f"Error in ceil function: {str(e)}")
+    
+    def _round(self, x):
+        """Handle rounding using Decimal's to_integral_value method"""
+        try:
+            d = Decimal(x)
+            result = d.to_integral_value(rounding=decimal.ROUND_HALF_UP)
+            return self._decimal_to_string(result)
+        except Exception as e:
+            raise ValueError(f"Error in round function: {str(e)}")
 
 def solve_expression(expression, show_steps=False):
     """Main function to solve the expression with error handling"""
@@ -467,7 +715,7 @@ def main():
         if expression.lower() == 'exit':
             break
         
-        # Check if user wants to set a variable
+        
         if expression.lower().startswith('set '):
             parts = expression.split()
             if len(parts) >= 3:
@@ -476,19 +724,19 @@ def main():
                 result = evaluator.set_variable(var_name, var_value)
                 print(result)
             else:
-                print("Usage: set <> <value>")
+                print("Usage: set <variable> <value>")
             continue
         
-        # Evaluate the expression with step-by-step evaluation
+        
         result = evaluator.evaluate(expression, show_steps=True)
         
-        # Print the result
+        
         if isinstance(result, dict):
             print("Result:", result["result"])
         else:
             print("Result:", result)
         
-        # Print the steps (for demonstration)
+        
         print("\nStep-by-step evaluation:")
         for i, step in enumerate(sbse, 1):
             print(f"{i}. {step}")
