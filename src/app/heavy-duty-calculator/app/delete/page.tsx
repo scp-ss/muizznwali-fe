@@ -6,3 +6,5 @@ export default function deletePage(){
         <p>Delete Page</p>
     )
 }
+
+
