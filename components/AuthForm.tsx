@@ -220,27 +220,6 @@ export default function AuthForm({ onSuccess }: AuthFormProps) {
           
           {/* Hero Section */}
           <div className="text-center relative">
-            <div className="relative mb-8">
-              {/* Floating icon background */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-32 h-32 bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100 rounded-full opacity-40 animate-pulse"></div>
-                <div className="absolute w-24 h-24 bg-gradient-to-br from-indigo-200 via-purple-200 to-pink-200 rounded-full opacity-30 animate-ping"></div>
-              </div>
-              
-              {/* Main icon */}
-              <div className="relative transform hover:scale-110 transition-all duration-500">
-                <div className="mx-auto w-20 h-20 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl shadow-2xl flex items-center justify-center transform rotate-3 hover:rotate-0 transition-transform duration-500">
-<svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 5H7a2 2 0 00-2 1v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
-</svg>
-
-
-                </div>
-                <div className="absolute -top-1 -right-1 w-6 h-6 bg-gradient-to-r from-pink-400 to-purple-400 rounded-full animate-bounce flex items-center justify-center">
-                  <span className="text-white text-xs font-bold">✨</span>
-                </div>
-              </div>
-            </div>
             
             {/* Title with enhanced animation */}
             <div className="space-y-2 mb-8">
@@ -255,9 +234,9 @@ export default function AuthForm({ onSuccess }: AuthFormProps) {
             </div>
             
             <p className="text-lg text-gray-600 mb-8 max-w-sm mx-auto leading-relaxed">
-              {isLogin 
-                ? '🚀 Ready to boost your productivity and conquer your goals?' 
-                : '🎉 Start your journey to organized success and achievement!'}
+              {isLogin
+                ? 'Ready to boost your productivity and conquer your goals?'
+                : 'Start your journey to organized success and achievement!'}
             </p>
             
             {/* Mode toggle */}
@@ -268,12 +247,37 @@ export default function AuthForm({ onSuccess }: AuthFormProps) {
               <button
                 type="button"
                 onClick={toggleMode}
-                className="group relative inline-flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-indigo-50 to-purple-50 hover:from-indigo-100 hover:to-purple-100 border border-indigo-200 hover:border-indigo-300 rounded-full font-semibold text-indigo-700 hover:text-indigo-800 transition-all duration-200 transform hover:scale-105 shadow-sm hover:shadow-md"
+                style={{
+                  padding: '8px 16px',
+                  background: 'linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)',
+                  color: '#4338ca',
+                  fontWeight: '600',
+                  fontSize: '14px',
+                  border: '1px solid #c7d2fe',
+                  borderRadius: '20px',
+                  cursor: 'pointer',
+                  boxShadow: '0 2px 4px 0 rgba(67, 56, 202, 0.1)',
+                  transition: 'all 0.2s ease',
+                  outline: 'none'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = 'linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%)';
+                  e.currentTarget.style.boxShadow = '0 4px 8px 0 rgba(67, 56, 202, 0.15)';
+                  e.currentTarget.style.transform = 'translateY(-1px)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)';
+                  e.currentTarget.style.boxShadow = '0 2px 4px 0 rgba(67, 56, 202, 0.1)';
+                  e.currentTarget.style.transform = 'translateY(0)';
+                }}
+                onFocus={(e) => {
+                  e.currentTarget.style.boxShadow = '0 2px 4px 0 rgba(67, 56, 202, 0.1), 0 0 0 3px rgba(67, 56, 202, 0.1)';
+                }}
+                onBlur={(e) => {
+                  e.currentTarget.style.boxShadow = '0 2px 4px 0 rgba(67, 56, 202, 0.1)';
+                }}
               >
-                <span className="text-sm">{isLogin ? 'Sign up' : 'Sign in'}</span>
-                <svg className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M9 5l7 7-7 7" />
-                </svg>
+                {isLogin ? 'Sign up' : 'Sign in'}
               </button>
             </div>
           </div>
@@ -290,12 +294,9 @@ export default function AuthForm({ onSuccess }: AuthFormProps) {
                   {/* Display Name Field (for signup) */}
                   {!isLogin && (
                     <div className="transform transition-all duration-500 animate-slideInDown">
-                      <label htmlFor="displayName" className="flex items-center space-x-2 text-sm font-semibold text-gray-700 mb-3">
-                        <svg className="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                        </svg>
-                        <span>Your Name</span>
-                      </label>
+                      <label htmlFor="displayName" className="text-sm font-semibold text-gray-700 mb-3">
+                         Your Name
+                       </label>
                       <div className="relative group">
                         <input
                           id="displayName"
@@ -324,14 +325,9 @@ export default function AuthForm({ onSuccess }: AuthFormProps) {
                       {/* Contextual Help */}
                       {showHelpText === 'displayName' && (
                         <div className="mt-2 p-3 bg-blue-50 border border-blue-200 rounded-xl text-sm text-blue-800 animate-slideInUp">
-                          <div className="flex items-start space-x-2">
-                            <svg className="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                            <div>
-                              <p className="font-medium">Choose your display name</p>
-                              <p className="text-blue-600">This is how you'll appear in your todo universe. You can use your real name, nickname, or any name you prefer!</p>
-                            </div>
+                          <div>
+                            <p className="font-medium">Choose your display name</p>
+                            <p className="text-blue-600">This is how you'll appear in your todo universe. You can use your real name, nickname, or any name you prefer!</p>
                           </div>
                         </div>
                       )}
@@ -340,16 +336,8 @@ export default function AuthForm({ onSuccess }: AuthFormProps) {
 
                   {/* Email Field */}
                   <div className="transform transition-all duration-300">
-                    <label htmlFor="email" className="flex items-center space-x-2 text-sm font-semibold text-gray-700 mb-3">
-                      <svg className="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                        width="200"
-                      height="200"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
-                      </svg>
-                      <span>Email Address</span>
+                    <label htmlFor="email" className="text-sm font-semibold text-gray-700 mb-3">
+                      Email Address
                     </label>
                     <div className="relative group">
                       <input
@@ -388,17 +376,8 @@ export default function AuthForm({ onSuccess }: AuthFormProps) {
 
                   {/* Password Field */}
                   <div className="transform transition-all duration-300">
-                    <label htmlFor="password" className="flex items-center space-x-2 text-sm font-semibold text-gray-700 mb-3">
-                      <svg className="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                      
-                        width="200"
-                      height="200"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                      </svg>
-                      <span>Password</span>
+                    <label htmlFor="password" className="text-sm font-semibold text-gray-700 mb-3">
+                      Password
                     </label>
                     <div className="relative group">
                       <input
@@ -458,7 +437,7 @@ export default function AuthForm({ onSuccess }: AuthFormProps) {
                         </div>
                         {passwordStrength > 0 && passwordStrength < 50 && (
                           <div className="text-xs text-gray-500">
-                            💡 Try adding uppercase letters, numbers, and symbols
+                            Try adding uppercase letters, numbers, and symbols
                           </div>
                         )}
                       </div>
@@ -470,11 +449,6 @@ export default function AuthForm({ onSuccess }: AuthFormProps) {
                 {error && (
                   <div className="rounded-2xl bg-red-50 border-2 border-red-100 p-4 animate-slideInUp transform transition-all duration-300">
                     <div className="flex items-center space-x-3">
-                      <div className="flex-shrink-0">
-                        <svg className="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                      </div>
                       <div className="text-sm text-red-700 font-medium flex-1">{error}</div>
                       <button
                         type="button"
@@ -494,79 +468,107 @@ export default function AuthForm({ onSuccess }: AuthFormProps) {
                   <button
                     type="submit"
                     disabled={loading || (!isLogin && (!emailValid || passwordStrength < 50))}
-                    className="auth-form-button bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:from-indigo-700 hover:via-purple-700 hover:to-pink-700 text-white group relative overflow-hidden"
+                    style={{
+                      width: '100%',
+                      background: 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)',
+                      color: 'white',
+                      fontWeight: '600',
+                      padding: '12px 24px',
+                      borderRadius: '8px',
+                      border: 'none',
+                      boxShadow: '0 4px 14px 0 rgba(37, 99, 235, 0.39)',
+                      cursor: loading || (!isLogin && (!emailValid || passwordStrength < 50)) ? 'not-allowed' : 'pointer',
+                      opacity: loading || (!isLogin && (!emailValid || passwordStrength < 50)) ? 0.6 : 1,
+                      transform: 'translateY(0)',
+                      transition: 'all 0.2s ease',
+                      fontSize: '16px',
+                      outline: 'none'
+                    }}
+                    onMouseEnter={(e) => {
+                      if (!loading && (isLogin || (emailValid && passwordStrength >= 50))) {
+                        e.currentTarget.style.transform = 'translateY(-2px)';
+                        e.currentTarget.style.boxShadow = '0 8px 25px 0 rgba(37, 99, 235, 0.5)';
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = 'translateY(0)';
+                      e.currentTarget.style.boxShadow = '0 4px 14px 0 rgba(37, 99, 235, 0.39)';
+                    }}
+                    onFocus={(e) => {
+                      e.currentTarget.style.boxShadow = '0 4px 14px 0 rgba(37, 99, 235, 0.39), 0 0 0 3px rgba(37, 99, 235, 0.2)';
+                    }}
+                    onBlur={(e) => {
+                      e.currentTarget.style.boxShadow = '0 4px 14px 0 rgba(37, 99, 235, 0.39)';
+                    }}
                   >
-                    {/* Button shine effect */}
-                    <div className="absolute inset-0 bg-white/20 transform -skew-y-12 group-hover:skew-y-12 transition-transform duration-500"></div>
-                    
-                    {/* Sparkle effects */}
-                    <div className="absolute top-2 right-4 w-2 h-2 bg-white/60 rounded-full animate-ping"></div>
-                    <div className="absolute bottom-2 left-4 w-1 h-1 bg-white/40 rounded-full animate-pulse"></div>
-                    
-                    <div className="relative flex items-center justify-center space-x-3">
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px' }}>
                       {loading ? (
                         <>
-                          <div className="animate-spin rounded-full h-6 w-6 border-2 border-white border-t-transparent"></div>
-                          <span className="text-lg">
-                            {isLogin ? 'Signing you in...' : 'Creating magic...'}
+                          <div
+                            style={{
+                              width: '20px',
+                              height: '20px',
+                              border: '2px solid rgba(255, 255, 255, 0.3)',
+                              borderTop: '2px solid white',
+                              borderRadius: '50%',
+                              animation: 'spin 1s linear infinite'
+                            }}
+                          ></div>
+                          <span>
+                            {isLogin ? 'Signing you in...' : 'Creating account...'}
                           </span>
                         </>
                       ) : (
-                        <>
-                          <svg className="w-6 h-6 transform group-hover:scale-110 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d={isLogin ? "M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" : "M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"} />
-                          </svg>
-                          <span className="text-lg font-bold">
-                            {isLogin ? '🚀 Launch In' : '✨ Join Universe'}
-                          </span>
-                        </>
+                        <span>
+                          {isLogin ? 'Sign In' : 'Sign Up'}
+                        </span>
                       )}
                     </div>
                   </button>
                 </div>
                 
                 {/* Social Login Divider */}
-                <div className="relative my-8">
+                <div className="relative my-6">
                   <div className="absolute inset-0 flex items-center">
                     <div className="w-full border-t border-gray-200"></div>
                   </div>
-                  <div className="relative flex justify-center text-sm">
-                    <span className="px-4 bg-white/80 text-gray-500 font-medium backdrop-blur-sm rounded-full">
+                  <div className="relative flex justify-center text-xs">
+                    <span className="px-3 bg-white text-gray-500 font-medium rounded-full">
                       Or continue with
                     </span>
                   </div>
                 </div>
-                
+
                 {/* Social Login Buttons */}
-                <div className="space-y-4">
+                <div className="flex gap-3">
                   {/* Google Sign In */}
                   <button
                     type="button"
                     onClick={() => console.log('Google Sign In - Implementation needed')}
-                    className="w-full flex items-center justify-center gap-3 px-6 py-4 bg-white border-2 border-gray-200 rounded-2xl shadow-md hover:shadow-xl hover:border-blue-300 transition-all duration-300 transform hover:scale-[1.02] focus:outline-none focus:ring-4 focus:ring-blue-500/20 group"
+                    className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md hover:border-blue-300 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
                   >
-                    <svg className="w-5 h-5" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4" viewBox="0 0 24 24">
                       <path fill="#4285f4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
                       <path fill="#34a853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
                       <path fill="#fbbc05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
                       <path fill="#ea4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
                     </svg>
-                    <span className="font-semibold text-gray-800 text-base">
-                      Continue with Google
+                    <span className="font-medium text-gray-800 text-sm">
+                      Google
                     </span>
                   </button>
-                  
+
                   {/* GitHub Sign In */}
                   <button
                     type="button"
                     onClick={() => console.log('GitHub Sign In - Implementation needed')}
-                    className="w-full flex items-center justify-center gap-3 px-6 py-4 bg-gray-900 border-2 border-gray-800 rounded-2xl shadow-md hover:shadow-xl hover:bg-gray-800 transition-all duration-300 transform hover:scale-[1.02] focus:outline-none focus:ring-4 focus:ring-gray-500/30 group"
+                    className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-gray-900 border border-gray-800 rounded-lg shadow-sm hover:shadow-md hover:bg-gray-800 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500/30"
                   >
-                    <svg className="w-5 h-5 fill-white" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4 fill-white" viewBox="0 0 24 24">
                       <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
                     </svg>
-                    <span className="font-semibold text-white text-base">
-                      Continue with GitHub
+                    <span className="font-medium text-white text-sm">
+                      GitHub
                     </span>
                   </button>
                 </div>
@@ -588,11 +590,8 @@ export default function AuthForm({ onSuccess }: AuthFormProps) {
                       <button
                         type="button"
                         onClick={handleForgotPassword}
-                        className="group inline-flex items-center space-x-2 px-4 py-2 bg-red-50 hover:bg-red-100 border border-red-200 hover:border-red-300 rounded-xl font-medium text-red-700 hover:text-red-800 transition-all duration-200 transform hover:scale-105 shadow-sm hover:shadow-md"
+                        className="px-4 py-2 bg-red-50 hover:bg-red-100 border border-red-200 hover:border-red-300 rounded-xl font-medium text-red-700 hover:text-red-800 transition-all duration-200 shadow-sm hover:shadow-md"
                       >
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
-                        </svg>
                         <span className="text-sm">Forgot Password?</span>
                       </button>
                     </div>
@@ -625,11 +624,6 @@ export default function AuthForm({ onSuccess }: AuthFormProps) {
               
               {/* Modal header */}
               <div className="text-center mb-6">
-                <div className="mx-auto w-16 h-16 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl shadow-xl flex items-center justify-center mb-4">
-                  <svg className="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
-                  </svg>
-                </div>
                 <h3 className="text-2xl font-bold text-gray-800 mb-2">Reset Password</h3>
                 <p className="text-gray-600">Enter your email address and we'll send you a link to reset your password.</p>
               </div>
@@ -637,14 +631,9 @@ export default function AuthForm({ onSuccess }: AuthFormProps) {
               {resetSuccess ? (
                 /* Success state */
                 <div className="text-center animate-fadeIn">
-                  <div className="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
-                    <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M5 13l4 4L19 7" />
-                    </svg>
-                  </div>
-                  <h4 className="text-xl font-semibold text-gray-800 mb-2">Email Sent! 📧</h4>
+                  <h4 className="text-xl font-semibold text-gray-800 mb-2">Email Sent</h4>
                   <p className="text-gray-600 mb-4">
-                    We've sent a password reset link to <span className="font-semibold">{resetEmail}</span>. 
+                    We've sent a password reset link to <span className="font-semibold">{resetEmail}</span>.
                     Check your inbox and follow the instructions to reset your password.
                   </p>
                   <p className="text-sm text-gray-500">This window will close automatically...</p>
@@ -653,11 +642,8 @@ export default function AuthForm({ onSuccess }: AuthFormProps) {
                 /* Form state */
                 <form onSubmit={handleResetPassword} className="space-y-6">
                   <div>
-                    <label htmlFor="resetEmail" className="flex items-center space-x-2 text-sm font-semibold text-gray-700 mb-3">
-                      <svg className="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
-                      </svg>
-                      <span>Email Address</span>
+                    <label htmlFor="resetEmail" className="text-sm font-semibold text-gray-700 mb-3">
+                      Email Address
                     </label>
                     <input
                       id="resetEmail"
@@ -673,12 +659,7 @@ export default function AuthForm({ onSuccess }: AuthFormProps) {
                   {/* Error message */}
                   {resetError && (
                     <div className="rounded-xl bg-red-50 border border-red-200 p-3 animate-slideInUp">
-                      <div className="flex items-center space-x-2">
-                        <svg className="w-5 h-5 text-red-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        <div className="text-sm text-red-700 font-medium">{resetError}</div>
-                      </div>
+                      <div className="text-sm text-red-700 font-medium">{resetError}</div>
                     </div>
                   )}
                   
