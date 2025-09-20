@@ -454,7 +454,6 @@
 /* Input Fields */
 .auth-form-input {
   padding: 0.75rem 1rem;
-  border: 1px solid #6b7280;
   background: linear-gradient(135deg, #374151 0%, #4b5563 100%);
   color: #e2e8f0;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
@@ -591,7 +590,6 @@
 /* Form Card with Dark Theme */
 .auth-form-card {
   background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-  border: 1px solid #475569;
   border-radius: 16px;
   padding: 2rem;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 4px 16px rgba(0, 0, 0, 0.3);

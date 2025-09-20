@@ -284,7 +284,7 @@ export default function AuthForm({ onSuccess }: AuthFormProps) {
 
           {/* Form Card */}
           <div className={`transform transition-all duration-500 ${isLogin ? 'animate-slideInRight' : 'animate-slideInLeft'}`}>
-            <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 p-8 relative overflow-hidden">
+            <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl  relative overflow-hidden">
               {/* Card decoration */}
               <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-indigo-100 to-transparent opacity-30 rounded-full transform translate-x-16 -translate-y-16"></div>
               <div className="absolute bottom-0 left-0 w-20 h-20 bg-gradient-to-tr from-purple-100 to-transparent opacity-30 rounded-full transform -translate-x-10 translate-y-10"></div>
@@ -590,9 +590,36 @@ export default function AuthForm({ onSuccess }: AuthFormProps) {
                       <button
                         type="button"
                         onClick={handleForgotPassword}
-                        className="px-4 py-2 bg-red-50 hover:bg-red-100 border border-red-200 hover:border-red-300 rounded-xl font-medium text-red-700 hover:text-red-800 transition-all duration-200 shadow-sm hover:shadow-md"
+                        style={{
+                          padding: '0.5rem 1rem',
+                          backgroundColor: 'transparent',
+                          color: '#60a5fa',
+                          fontSize: '0.875rem',
+                          fontWeight: '500',
+                          border: '1px solid rgba(96, 165, 250, 0.3)',
+                          borderRadius: '8px',
+                          cursor: 'pointer',
+                          transition: 'all 0.2s ease',
+                          outline: 'none'
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.backgroundColor = 'rgba(96, 165, 250, 0.1)';
+                          e.currentTarget.style.borderColor = 'rgba(96, 165, 250, 0.5)';
+                          e.currentTarget.style.color = '#93c5fd';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.backgroundColor = 'transparent';
+                          e.currentTarget.style.borderColor = 'rgba(96, 165, 250, 0.3)';
+                          e.currentTarget.style.color = '#60a5fa';
+                        }}
+                        onFocus={(e) => {
+                          e.currentTarget.style.boxShadow = '0 0 0 3px rgba(96, 165, 250, 0.2)';
+                        }}
+                        onBlur={(e) => {
+                          e.currentTarget.style.boxShadow = 'none';
+                        }}
                       >
-                        <span className="text-sm">Forgot Password?</span>
+                        Forgot Password?
                       </button>
                     </div>
                   </div>
@@ -605,91 +632,278 @@ export default function AuthForm({ onSuccess }: AuthFormProps) {
       
       {/* Forgot Password Modal */}
       {showForgotPassword && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-fadeIn">
-          <div className="bg-white/90 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/30 p-8 w-full max-w-md relative overflow-hidden animate-slideInUp">
-            {/* Modal decoration */}
-            <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-indigo-100 to-transparent opacity-50 rounded-full transform translate-x-10 -translate-y-10"></div>
-            
-            <div className="relative">
-              {/* Close button */}
-              <button
-                type="button"
-                onClick={closeForgotPasswordModal}
-                className="absolute top-0 right-0 text-gray-400 hover:text-gray-600 transition-colors duration-200"
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-              
-              {/* Modal header */}
-              <div className="text-center mb-6">
-                <h3 className="text-2xl font-bold text-gray-800 mb-2">Reset Password</h3>
-                <p className="text-gray-600">Enter your email address and we'll send you a link to reset your password.</p>
-              </div>
-              
-              {resetSuccess ? (
-                /* Success state */
-                <div className="text-center animate-fadeIn">
-                  <h4 className="text-xl font-semibold text-gray-800 mb-2">Email Sent</h4>
-                  <p className="text-gray-600 mb-4">
-                    We've sent a password reset link to <span className="font-semibold">{resetEmail}</span>.
-                    Check your inbox and follow the instructions to reset your password.
-                  </p>
-                  <p className="text-sm text-gray-500">This window will close automatically...</p>
-                </div>
-              ) : (
-                /* Form state */
-                <form onSubmit={handleResetPassword} className="space-y-6">
-                  <div>
-                    <label htmlFor="resetEmail" className="text-sm font-semibold text-gray-700 mb-3">
-                      Email Address
-                    </label>
-                    <input
-                      id="resetEmail"
-                      type="email"
-                      required
-                      value={resetEmail}
-                      onChange={(e) => setResetEmail(e.target.value)}
-                      className="auth-form-input placeholder-gray-400 text-gray-700"
-                      placeholder="your.email@example.com"
-                    />
-                  </div>
-                  
-                  {/* Error message */}
-                  {resetError && (
-                    <div className="rounded-xl bg-red-50 border border-red-200 p-3 animate-slideInUp">
-                      <div className="text-sm text-red-700 font-medium">{resetError}</div>
-                    </div>
-                  )}
-                  
-                  {/* Submit button */}
-                  <div className="flex space-x-3 pt-4">
-                    <button
-                      type="button"
-                      onClick={closeForgotPasswordModal}
-                      className="flex-1 px-6 py-3 border-2 border-gray-200 text-gray-700 font-semibold rounded-xl hover:bg-gray-50 transition-colors duration-200"
-                    >
-                      Cancel
-                    </button>
-                    <button
-                      type="submit"
-                      disabled={resetLoading}
-                      className="flex-1 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold py-3 px-6 rounded-xl hover:from-indigo-700 hover:to-purple-700 disabled:opacity-50 transition-all duration-200 transform hover:scale-105 disabled:transform-none"
-                    >
-                      {resetLoading ? (
-                        <div className="flex items-center justify-center space-x-2">
-                          <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent"></div>
-                          <span>Sending...</span>
-                        </div>
-                      ) : (
-                        'Send Reset Link'
-                      )}
-                    </button>
-                  </div>
-                </form>
-              )}
+        <div
+          style={{
+            position: 'fixed',
+            inset: 0,
+            zIndex: 50,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '1rem',
+            backgroundColor: 'rgba(0, 0, 0, 0.6)',
+            backdropFilter: 'blur(8px)'
+          }}
+        >
+          <div
+            style={{
+              background: 'linear-gradient(135deg, #1e293b 0%, #334155 100%)',
+              borderRadius: '16px',
+              padding: '2rem',
+              width: '100%',
+              maxWidth: '400px',
+              boxShadow: '0 20px 40px rgba(0, 0, 0, 0.4)',
+              border: '1px solid #475569',
+              position: 'relative'
+            }}
+          >
+            {/* Close button */}
+            <button
+              type="button"
+              onClick={closeForgotPasswordModal}
+              style={{
+                position: 'absolute',
+                top: '1rem',
+                right: '1rem',
+                background: 'transparent',
+                border: 'none',
+                color: '#9ca3af',
+                cursor: 'pointer',
+                padding: '0.5rem',
+                borderRadius: '8px',
+                transition: 'all 0.2s ease'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = 'rgba(156, 163, 175, 0.1)';
+                e.currentTarget.style.color = '#e2e8f0';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = 'transparent';
+                e.currentTarget.style.color = '#9ca3af';
+              }}
+            >
+              <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+
+            {/* Modal content */}
+            <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+              <h3 style={{
+                fontSize: '1.5rem',
+                fontWeight: '700',
+                color: '#f1f5f9',
+                marginBottom: '0.5rem'
+              }}>
+                Reset Password
+              </h3>
+              <p style={{
+                fontSize: '0.875rem',
+                color: '#cbd5e1',
+                lineHeight: '1.5'
+              }}>
+                Enter your email address and we'll send you a link to reset your password.
+              </p>
             </div>
+
+            {resetSuccess ? (
+              /* Success state */
+              <div style={{ textAlign: 'center' }}>
+                <div style={{
+                  width: '48px',
+                  height: '48px',
+                  backgroundColor: '#10b981',
+                  borderRadius: '50%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  margin: '0 auto 1rem'
+                }}>
+                  <svg width="24" height="24" fill="none" stroke="white" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <h4 style={{
+                  fontSize: '1.125rem',
+                  fontWeight: '600',
+                  color: '#f1f5f9',
+                  marginBottom: '1rem'
+                }}>
+                  Check Your Email
+                </h4>
+                <p style={{
+                  fontSize: '0.875rem',
+                  color: '#cbd5e1',
+                  marginBottom: '1.5rem',
+                  lineHeight: '1.5'
+                }}>
+                  We've sent a password reset link to <strong style={{ color: '#60a5fa' }}>{resetEmail}</strong>.
+                  Click the link in the email to reset your password.
+                </p>
+                <button
+                  type="button"
+                  onClick={closeForgotPasswordModal}
+                  style={{
+                    width: '100%',
+                    background: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
+                    color: 'white',
+                    fontWeight: '600',
+                    padding: '0.75rem 1rem',
+                    borderRadius: '8px',
+                    border: 'none',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-1px)';
+                    e.currentTarget.style.boxShadow = '0 4px 12px rgba(59, 130, 246, 0.4)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.boxShadow = 'none';
+                  }}
+                >
+                  Done
+                </button>
+              </div>
+            ) : (
+              /* Form state */
+              <form onSubmit={handleResetPassword} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                <div>
+                  <label
+                    htmlFor="resetEmail"
+                    style={{
+                      display: 'block',
+                      fontSize: '0.875rem',
+                      fontWeight: '600',
+                      color: '#e2e8f0',
+                      marginBottom: '0.5rem'
+                    }}
+                  >
+                    Email Address
+                  </label>
+                  <input
+                    id="resetEmail"
+                    type="email"
+                    required
+                    value={resetEmail}
+                    onChange={(e) => setResetEmail(e.target.value)}
+                    style={{
+                      width: '100%',
+                      padding: '0.75rem',
+                      border: '1px solid #6b7280',
+                      borderRadius: '8px',
+                      background: 'linear-gradient(135deg, #374151 0%, #4b5563 100%)',
+                      color: '#e2e8f0',
+                      fontSize: '0.875rem',
+                      outline: 'none',
+                      transition: 'all 0.2s ease'
+                    }}
+                    onFocus={(e) => {
+                      e.currentTarget.style.borderColor = '#60a5fa';
+                      e.currentTarget.style.boxShadow = '0 0 0 3px rgba(96, 165, 250, 0.1)';
+                    }}
+                    onBlur={(e) => {
+                      e.currentTarget.style.borderColor = '#6b7280';
+                      e.currentTarget.style.boxShadow = 'none';
+                    }}
+                    placeholder="your.email@example.com"
+                  />
+                </div>
+
+                {/* Error message */}
+                {resetError && (
+                  <div style={{
+                    padding: '0.75rem',
+                    backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                    border: '1px solid rgba(239, 68, 68, 0.2)',
+                    borderRadius: '8px',
+                    color: '#ef4444',
+                    fontSize: '0.875rem',
+                    fontWeight: '500'
+                  }}>
+                    {resetError}
+                  </div>
+                )}
+
+                {/* Buttons */}
+                <div style={{ display: 'flex', gap: '0.75rem', marginTop: '1rem' }}>
+                  <button
+                    type="button"
+                    onClick={closeForgotPasswordModal}
+                    style={{
+                      flex: 1,
+                      padding: '0.75rem 1rem',
+                      border: '1px solid #6b7280',
+                      backgroundColor: 'transparent',
+                      color: '#cbd5e1',
+                      fontWeight: '500',
+                      borderRadius: '8px',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s ease'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = 'rgba(107, 114, 128, 0.1)';
+                      e.currentTarget.style.borderColor = '#9ca3af';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = 'transparent';
+                      e.currentTarget.style.borderColor = '#6b7280';
+                    }}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={resetLoading}
+                    style={{
+                      flex: 1,
+                      padding: '0.75rem 1rem',
+                      background: resetLoading ? '#6b7280' : 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
+                      color: 'white',
+                      fontWeight: '600',
+                      border: 'none',
+                      borderRadius: '8px',
+                      cursor: resetLoading ? 'not-allowed' : 'pointer',
+                      opacity: resetLoading ? 0.6 : 1,
+                      transition: 'all 0.2s ease',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '0.5rem'
+                    }}
+                    onMouseEnter={(e) => {
+                      if (!resetLoading) {
+                        e.currentTarget.style.transform = 'translateY(-1px)';
+                        e.currentTarget.style.boxShadow = '0 4px 12px rgba(59, 130, 246, 0.4)';
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = 'translateY(0)';
+                      e.currentTarget.style.boxShadow = 'none';
+                    }}
+                  >
+                    {resetLoading ? (
+                      <>
+                        <div
+                          style={{
+                            width: '16px',
+                            height: '16px',
+                            border: '2px solid rgba(255, 255, 255, 0.3)',
+                            borderTop: '2px solid white',
+                            borderRadius: '50%',
+                            animation: 'spin 1s linear infinite'
+                          }}
+                        ></div>
+                        <span>Sending...</span>
+                      </>
+                    ) : (
+                      'Send Reset Link'
+                    )}
+                  </button>
+                </div>
+              </form>
+            )}
           </div>
         </div>
       )}

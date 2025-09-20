@@ -14,6 +14,7 @@ export const metadata: Metadata = {
 };
 
 
+
 // FIND DIFERENCE BETWEEN window.location.hostname AND window.location.host
 // FIND DIFFERENCE BETWEEN window.location.origin AND window.location.host
 // FIND DIFFERENCE BETWEEN window.location.href AND window.location.host
@@ -121,11 +122,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="fc1279abd204ac51eb717a7fed308fbe12f00504" content="fc1279abd204ac51eb717a7fed308fbe12f00504" />
         */}
         <meta name="google-adsense-account" content="ca-pub-8243831335530194"></meta>
-        
+
+        {/* Favicon and Icons */}
+        <link rel="icon" type="image/x-icon" href="/assets/icons/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16x16.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png" />
+        <link rel="manifest" href="/assets/icons/site.webmanifest" />
+        <meta name="msapplication-TileColor" content="#0f172a" />
+        <meta name="theme-color" content="#0f172a" />
+
         {process.env.NODE_ENV === "production" && (
-          <script 
-          async 
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8243831335530194" 
+          <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8243831335530194"
           crossOrigin="anonymous"
           ></script>
         )}

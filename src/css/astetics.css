@@ -14,7 +14,6 @@ body {
   padding: 2rem;
   transition: all 0.3s ease;
   color: #e2e8f0;
-  border: 1px solid #475569;
   position: relative;
   overflow: hidden;
 }
@@ -162,7 +161,6 @@ body {
   padding: 1rem 1.25rem;
   margin-bottom: 1rem;
   border-radius: 8px;
-  border: 1px solid #6b7280;
   transition: all 0.3s ease;
   color: #e2e8f0;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
